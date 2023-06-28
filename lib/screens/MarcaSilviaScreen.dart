@@ -12,45 +12,67 @@ class _MarcaSilviaScreenState extends State<MarcaSilviaScreen> {
   List<SectionData> _sections = [
     SectionData(
       title: 'Marca Silvia',
-      imageUrl: 'assets/images/MarcaSilviaBG.jpg',
+      imageBG: 'assets/images/MarcaSilviaBG.jpg',
+      imageItem: 'assets/images/resourcesMarcaSilvia/mS_MarcaSilvia.png',
       description:
-          'Descripción de la sección 1 - Descripción de la sección 1 - Descripción de la sección 1',
+          'Es un sistema de identidad diseñado por la Corporación Cultural Vacalok, con el fin de agremiar, identificar, apoyar y proyectar a todos los agentes artisticos, culturales, deportivos, comerciales y de otros sectores, pertenenclentes al municpio de Silvia, asi como también, constituye el mecanismo visual mediante el cuál se pretende posicionar esta hermosa localidad Caucana a nivel mundial como un mágico lugar para conocer y visitar una y mil veces, gracias a todas sus características.',
+      width: 0.4, // Ancho personalizado para la primera sección
+      height: 0.4, // Alto personalizado para la primera sección
     ),
     SectionData(
       title: 'El Símbolo',
-      imageUrl: 'assets/images/MarcaSilviaBG.jpg',
+      imageBG: 'assets/images/MarcaSilviaBG.jpg',
+      imageItem: 'assets/images/resourcesMarcaSilvia/mS_Simbolo.png',
+      imageItem2: 'assets/images/resourcesMarcaSilvia/mS_Simbolos.svg.png',
       description:
-          'Descripción de la sección 2 - Descripción de la sección 2 - Descripción de la sección 2',
+          'Es la mezcla perfecta entre la inicial de Silvia, el sentido de pertenencia. por lo que somos, represententado en un corazón, la fauna visualizada en un colibrí típico del municipio y una hoja que simboliza nuetra riqueza natural en cuanto a flora se refiere. La pieza se tiñe con el verde de nuestro paisaje, el azul de nuestras aguas, el violeta de nuestras tradiciones y el naranja de nuestra alegria y calor humano.',
+      width: 0.3, // Ancho personalizado para la segunda sección
+      height: 0.3, // Alto personalizado para la segunda sección
     ),
     SectionData(
       title: 'El Slogan',
-      imageUrl: 'assets/images/MarcaSilviaBG.jpg',
+      imageBG: 'assets/images/MarcaSilviaBG.jpg',
+      imageItem: 'assets/images/resourcesMarcaSilvia/mS_Slogan.svg.png',
       description:
-          'Descripción de la sección 3 - Descripción de la sección 3 - Descripción de la sección 3',
+          'Es la descripción textual de lo que es el municipio de Silvia en materia cultural, gracias a su amplio abanico en este aspecto, compuesto por 4 comunidades indigenas; Kishú, Nasa, Ampiuile, y Misak, dos comunidades indigenas como los son Usenda y Santa Lucia y la zona urbana, convirtiendose de este modo, en uno de los 3 municipios con mayor diversidad indignea de Colombia.',
+      width: 0.1, // Ancho personalizado para la tercera sección
+      height: 0.1, // Alto personalizado para la tercera sección
     ),
     SectionData(
-      title: '¿Cómo funciona?',
-      imageUrl: 'assets/images/MarcaSilviaBG.jpg',
+      title: '¿Cómo Funciona?',
+      imageBG: 'assets/images/MarcaSilviaBG.jpg',
+      imageItem: 'assets/images/resourcesMarcaSilvia/mS_Identifier.png',
       description:
-          'Descripción de la sección 4 - Descripción de la sección 4 - Descripción de la sección 4',
+          'La marca constituye un indentificador que agremia un selecto grupo de embajadores (organizaciones, instituciones, entidades y personas) con un fin común, representar de manera ética y responsable al municipio de Silvia a través de sus propias actividades, (artisticas, comerciales, culturales, entre otras) mientras potencia los valores pluriculturales y naturales Silvianos para su equitativo reconocimiento y/o proyección a nivel local, regional, nacional e internacional.',
+      width: 0.3, // Ancho personalizado para la segunda sección
+      height: 0.3, // Alto personalizado para la segunda sección
     ),
     SectionData(
       title: '¿Qué beneficios tiene la marca?',
-      imageUrl: 'assets/images/MarcaSilviaBG.jpg',
+      imageBG: 'assets/images/MarcaSilviaBG.jpg',
+      imageItem: 'assets/images/resourcesMarcaSilvia/mS_Profits.png',
       description:
-          'Descripción de la sección 5 - Descripción de la sección 5 - Descripción de la sección 5',
+          'La marca en si, denota un certificado de excelencia, es un standar de calidad, todo aquel que tenga la posibilidad de convertirse en embajador de la marca, es porque ha cumplido con unos requisitos minimos exigidos que garantizan, no sólo un buen servicio, sino una buena, ética y responsable practica en su labor. Así mismo, obtendrá diversos beneficios de apoyo, reconocimiento y proyección en las diferentes plataformas implementadas por el proyecto Marca Silvia permitiéndole su crecimiento y posicionamiento a nivel local, regional, nacional e internacional.',
+      width: 0.3, // Ancho personalizado para la primera sección
+      height: 0.3, // Alto personalizado para la primera sección
     ),
     SectionData(
       title: '¿Qué implica?',
-      imageUrl: 'assets/images/MarcaSilviaBG.jpg',
+      imageBG: 'assets/images/MarcaSilviaBG.jpg',
+      imageItem: 'assets/images/resourcesMarcaSilvia/mS_Alert.svg.png',
       description:
-          'Descripción de la sección 6 - Descripción de la sección 6 - Descripción de la sección 6',
+          'Todos los socios de la marca Silvia, están obligados a ejercer buenas y éticas practicas en sus actividades para la pervalencia del buen nombre de Silvia, así como también velar por la conservación y proyección de todos los valores pluriculturales y naturales del municipio, todo lo anterior, conlleva a un alto nivel de sentido de pertenencia, caracteristica fundamental de todo aquel que quiera portar dicha marca.',
+      width: 0.3, // Ancho personalizado para la primera sección
+      height: 0.3, // Alto personalizado para la primera sección
     ),
     SectionData(
       title: '¿Quién puede ser embajador?',
-      imageUrl: 'assets/images/MarcaSilviaBG.jpg',
+      imageBG: 'assets/images/MarcaSilviaBG.jpg',
+      imageItem: 'assets/images/resourcesMarcaSilvia/mS_Ambassador.png',
       description:
-          'Descripción de la sección 7 - Descripción de la sección 7 - Descripción de la sección 7',
+          'Cualquier persona, institución, entidad u organización, de carácter público y/o privado, Silviano o no que pueda demostrar con hechos su sentido de pertenencia, buenas prácticas en su labor y profundo respeto por el muncipio y su identidad podrá solicitar la cobertura de la marca Silvia y hacer parte de nuestra base de datos, siempre y cuando cumpla con las politicas de uso e implementación de la misma.',
+      width: 0.3, // Ancho personalizado para la primera sección
+      height: 0.3, // Alto personalizado para la primera sección
     ),
   ];
 
@@ -64,111 +86,147 @@ class _MarcaSilviaScreenState extends State<MarcaSilviaScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          color: Colors.black,
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            color: Colors.black,
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.white,
+          elevation: 0,
         ),
-        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Expanded(
-            child: AnimatedSwitcher(
-              duration: Duration(milliseconds: 500),
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
-              },
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: _sections.length,
-                onPageChanged: (int index) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
+        body: Column(
+          children: [
+            Expanded(
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 500),
+                transitionBuilder: (Widget child, Animation<double> animation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
                 },
-                itemBuilder: (BuildContext context, int index) {
-                  SectionData section = _sections[index];
-                  final titlePadding = EdgeInsets.symmetric(
-                    horizontal: screenWidth / 4,
-                  );
-                  final descriptionPadding = EdgeInsets.symmetric(
-                    horizontal: screenWidth / 8,
-                    vertical: 10,
-                  );
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: _sections.length,
+                  onPageChanged: (int index) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                  itemBuilder: (BuildContext context, int index) {
+                    SectionData section = _sections[index];
+                    final titlePadding = EdgeInsets.symmetric(
+                      horizontal: screenWidth / 5,
+                    );
+                    final descriptionPadding = EdgeInsets.symmetric(
+                      horizontal: screenWidth / 9,
+                      vertical: 0,
+                    );
 
-                  return Container(
-                    key: ValueKey<int>(_currentIndex),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(section.imageUrl),
-                        fit: BoxFit.cover,
+                    return Container(
+                      key: ValueKey<int>(_currentIndex),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(section.imageBG),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: titlePadding,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              section.title,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 30,
-                                fontFamily: 'Helvetica-Bold',
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: titlePadding,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                section.title,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 30,
+                                  fontFamily: 'Helvetica-Bold',
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                              textAlign: TextAlign.center,
                             ),
                           ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Image.asset(
-                            'assets/images/1.jpg',
-                            width: 100,
-                            height: 100,
+                          SizedBox(height: 20),
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                child: IntrinsicWidth(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      Image.asset(
+                                        section.imageItem,
+                                        height: section.height * screenWidth,
+                                      ),
+                                      if (section.imageItem2 != null)
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 40,
+                                            vertical: 0,
+                                          ),
+                                          child: Image.asset(
+                                            section.imageItem2!,
+                                            width:
+                                                descriptionPadding.horizontal *
+                                                    6,
+                                            height: 100,
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        SizedBox(height: 10),
-                        Padding(
-                          padding: descriptionPadding,
-                          child: Text(
-                            section.description,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Helvetica-Light',
-                              color: Colors.black,
-                              fontSize: 18,
+                          SizedBox(height: 20),
+                          Padding(
+                            padding: descriptionPadding,
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  section.description,
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(
+                                    letterSpacing: 0.8,
+                                    wordSpacing: 1.8,
+                                    fontFamily: 'Helvetica-Light',
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: _buildIndicator(screenWidth),
-          ),
-        ],
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: _buildIndicator(screenWidth),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -192,12 +250,20 @@ class _MarcaSilviaScreenState extends State<MarcaSilviaScreen> {
 
 class SectionData {
   final String title;
-  final String imageUrl;
+  final String imageBG;
+  final String imageItem;
+  final String? imageItem2;
   final String description;
+  final double width;
+  final double height;
 
   SectionData({
     required this.title,
-    required this.imageUrl,
+    required this.imageBG,
+    required this.imageItem,
+    this.imageItem2,
     required this.description,
+    required this.width,
+    required this.height,
   });
 }

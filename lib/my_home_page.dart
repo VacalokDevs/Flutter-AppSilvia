@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/InicioScreen.dart';
-import 'screens/DirectorioScreen.dart';
+import 'screens/screensDirectory/DirectorioScreen.dart';
 import 'screens/EventosScreen.dart';
 import 'screens/DeInteresScreen.dart';
 import 'screens/VacalokScreen.dart';

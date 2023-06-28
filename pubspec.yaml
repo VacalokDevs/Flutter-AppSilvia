@@ -30,12 +30,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
 
+  intl: ^0.18.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.7
+  sliding_up_panel: ^2.0.0+1
+  carousel_slider: ^4.2.1
+  
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +64,49 @@ flutter:
   assets: 
     - assets/images/1.jpg
     - assets/images/MarcaSilviaBG.jpg
+
+    - assets/images/resourcesMarcaSilvia/MarcaSilvia-Boton.png
+    - assets/images/resourcesMarcaSilvia/mS_MarcaSilvia.png
+    - assets/images/resourcesMarcaSilvia/mS_Simbolo.png
+    - assets/images/resourcesMarcaSilvia/mS_Slogan.svg.png
+    - assets/images/resourcesMarcaSilvia/mS_Simbolos.svg.png
+    - assets/images/resourcesMarcaSilvia/mS_Identifier.png
+    - assets/images/resourcesMarcaSilvia/mS_Profits.png
+    - assets/images/resourcesMarcaSilvia/mS_Alert.svg.png
+    - assets/images/resourcesMarcaSilvia/mS_Ambassador.png
+    
+    - assets/images/noticias/noticia1/noticia1_0.jpg
+    - assets/images/noticias/noticia1/noticia1_1.jpg
+    - assets/images/noticias/noticia1/noticia1_2.jpg
+    - assets/images/noticias/noticia1/noticia1_3.jpg
+    - assets/images/noticias/noticia1/noticia1_4.jpg
+    - assets/images/noticias/noticia1/noticia1_5.jpg
+
+    - assets/images/noticias/noticia2/noticia2_0.jpg
+    - assets/images/noticias/noticia2/noticia2_1.jpg
+    - assets/images/noticias/noticia2/noticia2_2.jpg
+
+    #Imagenes Directorio
+      #Iconos Comercios
+    -  assets/images/directorio/iconos/icon_Emergencia.png
+    -  assets/images/directorio/iconos/icon_Restaurante.png
+    -  assets/images/directorio/iconos/icon_Hotel.png
+    -  assets/images/directorio/iconos/icon_Tienda.png
+    -  assets/images/directorio/iconos/icon_Artesania.png
+    -  assets/images/directorio/iconos/icon_Taller.png
+    -  assets/images/directorio/iconos/icon_Tecnologia.png
+    -  assets/images/directorio/iconos/icon_Prom.png
+    
+
+
+      #Contactos de Emergencia
+    - assets/images/directorio/emergencia/principal.jpg
+    - assets/images/directorio/artesania/principal.jpg
+    - assets/images/directorio/hotel/principal.jpg
+    - assets/images/directorio/mecanico/principal.jpg
+    - assets/images/directorio/restaurante/principal.jpg
+    - assets/images/directorio/tienda/principal.jpg
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
