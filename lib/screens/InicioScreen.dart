@@ -2,55 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../helpers/indicator_builder.dart';
-import '../helpers/pantalla_noticia_navigator.dart';
 import '../helpers/marca_silvia_navigator.dart';
 import '../models/noticia.dart';
 import '../../data/noticias_data.dart';
-import 'screensNews/Noticia1Screen.dart';
 
 class InicioScreen extends StatefulWidget {
   @override
   _InicioScreenState createState() => _InicioScreenState();
 }
 
-Route _createRoute(Noticia noticia) {
-  return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) =>
-        Noticia1Screen(noticia: noticia),
-    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      const begin = Offset(0.0, 1.0);
-      const end = Offset.zero;
-      final curve = Curves.ease;
-      final tween =
-          Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-      return SlideTransition(
-        position: animation.drive(tween),
-        child: child,
-      );
-    },
-  );
-}
-
 class _InicioScreenState extends State<InicioScreen> {
   List<Noticia> _noticias = NoticiasData.noticias;
+  late List<String> _backgroundImages;
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _backgroundImages =
+        _noticias.map((noticia) => noticia.backgroundImage).toList();
+  }
+
+  void onPageChanged(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   List<Widget> _buildIndicator() {
     return IndicatorBuilder.buildIndicator(_currentIndex, _noticias.length);
   }
 
   PageController _pageController = PageController();
-  int _currentIndex = 0;
   bool _isButtonPressed = false;
 
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
-  }
-
-  void _abrirPantallaNoticia(BuildContext context, Noticia noticia) {
-    PantallaNoticiaNavigator.abrirPantallaNoticia(context, noticia);
   }
 
   @override
@@ -66,21 +55,16 @@ class _InicioScreenState extends State<InicioScreen> {
             PageView.builder(
               controller: _pageController,
               itemCount: _noticias.length,
-              onPageChanged: (int index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
+              onPageChanged: onPageChanged,
               itemBuilder: (BuildContext context, int index) {
-                Noticia noticia = _noticias[index];
                 return GestureDetector(
                   onTap: () {
-                    _abrirPantallaNoticia(context, noticia);
+                    // Acción al hacer clic en la noticia
                   },
                   onVerticalDragEnd: (details) {
                     if (details.primaryVelocity != null &&
                         details.primaryVelocity! < 0) {
-                      _abrirPantallaNoticia(context, noticia);
+                      // Acción al hacer un deslizamiento vertical hacia arriba en la noticia
                     }
                   },
                   child: AnimatedBuilder(
@@ -89,7 +73,7 @@ class _InicioScreenState extends State<InicioScreen> {
                       double value = 1.0;
                       if (_pageController.position.haveDimensions) {
                         value = _pageController.page! - index;
-                        value = (1 - (value.abs() * 0.7)).clamp(0.0, 1.0);
+                        value = (1 - (value.abs() * 0.4)).clamp(0.5, 2.0);
                       }
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(25.0),
@@ -107,7 +91,7 @@ class _InicioScreenState extends State<InicioScreen> {
                                     ),
                                   ],
                                   image: DecorationImage(
-                                    image: AssetImage(noticia.imagen),
+                                    image: AssetImage(_backgroundImages[index]),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -132,7 +116,7 @@ class _InicioScreenState extends State<InicioScreen> {
                               Positioned(
                                 left: 0,
                                 right: 0,
-                                top: MediaQuery.of(context).size.height / 1.55,
+                                top: MediaQuery.of(context).size.height / 1.65,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,7 +160,7 @@ class _InicioScreenState extends State<InicioScreen> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(
-                                          40, 14, 40, 0),
+                                          40, 0, 40, 20),
                                       child: AnimatedBuilder(
                                         animation: _pageController,
                                         builder: (BuildContext context,
@@ -208,6 +192,70 @@ class _InicioScreenState extends State<InicioScreen> {
                                               fontSize: 18,
                                               fontFamily: 'Helvetica-Light',
                                             ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          40, 0, 40, 0),
+                                      child: AnimatedBuilder(
+                                        animation: _pageController,
+                                        builder: (BuildContext context,
+                                            Widget? child) {
+                                          double value = 1.0;
+                                          if (_pageController
+                                              .position.haveDimensions) {
+                                            value = _pageController.page! -
+                                                _currentIndex;
+                                            value = (1 - (value.abs() * 3))
+                                                .clamp(0.0, 1.0);
+                                          }
+                                          return Opacity(
+                                            opacity: value,
+                                            child: Transform.translate(
+                                              offset:
+                                                  Offset(0, (1 - value) * 100),
+                                              child: child,
+                                            ),
+                                          );
+                                        },
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Row(
+                                            children: _noticias[_currentIndex]
+                                                .imagenesRelacionadas
+                                                .map((imagen) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _backgroundImages[index] =
+                                                        imagen;
+                                                  });
+                                                },
+                                                child: Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal: 6.0),
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      4.5,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      4.5,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    image: DecorationImage(
+                                                      image: AssetImage(imagen),
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            }).toList(),
                                           ),
                                         ),
                                       ),
@@ -315,17 +363,31 @@ class _InicioScreenState extends State<InicioScreen> {
                         bottomRight: Radius.circular(20),
                       ),
                     ),
-                    child: _isButtonPressed
-                        ? Image.asset(
-                            'assets/images/resourcesMarcaSilvia/MarcaSilvia-Boton.png',
-                            height: 18,
-                            width: 18,
-                          )
-                        : Image.asset(
-                            'assets/images/resourcesMarcaSilvia/MarcaSilvia-Boton.png',
-                            height: 24,
-                            width: 24,
+                    padding: EdgeInsets.all(0),
+                    child: LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) {
+                        final double scaleFactor = constraints.maxWidth / 64;
+
+                        return Transform.scale(
+                          scale: scaleFactor,
+                          child: Container(
+                            padding: EdgeInsets.all(16),
+                            child: _isButtonPressed
+                                ? Image.asset(
+                                    'assets/images/resourcesMarcaSilvia/MarcaSilvia-Boton.png',
+                                    height: 18,
+                                    width: 18,
+                                  )
+                                : Image.asset(
+                                    'assets/images/resourcesMarcaSilvia/MarcaSilvia-Boton.png',
+                                    height: 24,
+                                    width: 24,
+                                  ),
                           ),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
