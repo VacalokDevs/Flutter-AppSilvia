@@ -63,25 +63,25 @@ class ComerciosData {
       instagram: 'instagram.com/restaurante1',
       ubicacion: [12.3456, -98.7654],
     ),
-    //HOTELES
-    Comercio(
-      nombre: 'HOTELES 2',
-      tipo: TiposComercioData.tiposComercio[2].tipo,
-      color: TiposComercioData.tiposComercio[2].color,
-      imagenComercio: 'assets/images/directorio/hotel/principal.jpg',
-      imagenesRelacionadas: [
-        'assets/images/directorio/hotel/principal.jpg',
-      ],
-      icono: TiposComercioData.tiposComercio[2].icono,
-    ),
     //TIENDAS
     Comercio(
       nombre: 'TIENDAS 1',
-      tipo: TiposComercioData.tiposComercio[3].tipo,
-      color: TiposComercioData.tiposComercio[3].color,
+      tipo: TiposComercioData.tiposComercio[2].tipo,
+      color: TiposComercioData.tiposComercio[2].color,
       imagenComercio: 'assets/images/directorio/tienda/principal.jpg',
       imagenesRelacionadas: [
         'assets/images/directorio/tienda/principal.jpg',
+      ],
+      icono: TiposComercioData.tiposComercio[2].icono,
+    ),
+    //HOTELES
+    Comercio(
+      nombre: 'HOTELES 2',
+      tipo: TiposComercioData.tiposComercio[3].tipo,
+      color: TiposComercioData.tiposComercio[3].color,
+      imagenComercio: 'assets/images/directorio/hotel/principal.jpg',
+      imagenesRelacionadas: [
+        'assets/images/directorio/hotel/principal.jpg',
       ],
       icono: TiposComercioData.tiposComercio[3].icono,
     ),
@@ -106,6 +106,46 @@ class ComerciosData {
         'assets/images/directorio/mecanico/principal.jpg',
       ],
       icono: TiposComercioData.tiposComercio[5].icono,
+    ),
+    Comercio(
+      nombre: 'Próximamente Más',
+      tipo: TiposComercioData.tiposComercio[6].tipo,
+      color: TiposComercioData.tiposComercio[6].color,
+      imagenComercio: 'assets/images/MarcaSilviaBG.jpg',
+      imagenesRelacionadas: [
+        'assets/images/directorio/mecanico/principal.jpg',
+      ],
+      icono: TiposComercioData.tiposComercio[6].icono,
+    ),
+    Comercio(
+      nombre: 'Próximamente Más',
+      tipo: TiposComercioData.tiposComercio[7].tipo,
+      color: TiposComercioData.tiposComercio[7].color,
+      imagenComercio: 'assets/images/MarcaSilviaBG.jpg',
+      imagenesRelacionadas: [
+        'assets/images/directorio/mecanico/principal.jpg',
+      ],
+      icono: TiposComercioData.tiposComercio[7].icono,
+    ),
+    Comercio(
+      nombre: 'Próximamente Más',
+      tipo: TiposComercioData.tiposComercio[8].tipo,
+      color: TiposComercioData.tiposComercio[8].color,
+      imagenComercio: 'assets/images/MarcaSilviaBG.jpg',
+      imagenesRelacionadas: [
+        'assets/images/directorio/mecanico/principal.jpg',
+      ],
+      icono: TiposComercioData.tiposComercio[8].icono,
+    ),
+    Comercio(
+      nombre: 'Próximamente Más',
+      tipo: TiposComercioData.tiposComercio[9].tipo,
+      color: TiposComercioData.tiposComercio[9].color,
+      imagenComercio: 'assets/images/MarcaSilviaBG.jpg',
+      imagenesRelacionadas: [
+        'assets/images/directorio/mecanico/principal.jpg',
+      ],
+      icono: TiposComercioData.tiposComercio[9].icono,
     ),
   ];
 }

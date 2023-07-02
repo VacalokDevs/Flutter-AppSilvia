@@ -2,41 +2,35 @@ import 'package:flutter/material.dart';
 import '../../../data/comercios_data.dart';
 import '../../../models/comercio.dart';
 
-class ComerciosEspecificosScreen extends StatelessWidget {
+class ListaComerciosEspecificosScreen extends StatefulWidget {
   final String tipoComercio;
 
-  ComerciosEspecificosScreen({required this.tipoComercio});
+  ListaComerciosEspecificosScreen({required this.tipoComercio});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Comercios - $tipoComercio'),
-      ),
-      body: Center(
-        child: Text('Lista de comercios $tipoComercio'),
-      ),
-    );
-  }
+  _ListaComerciosEspecificosScreenState createState() =>
+      _ListaComerciosEspecificosScreenState();
 }
 
-class MenuRestaurantesScreen extends StatefulWidget {
-  @override
-  _MenuRestaurantesScreenState createState() => _MenuRestaurantesScreenState();
-}
-
-class _MenuRestaurantesScreenState extends State<MenuRestaurantesScreen>
+class _ListaComerciosEspecificosScreenState
+    extends State<ListaComerciosEspecificosScreen>
     with SingleTickerProviderStateMixin {
   final ScrollController _controller = ScrollController();
-  List<Comercio> comercios = ComerciosData.comercios;
+  List<Comercio> comercios = [];
   int _focusedIndex = -1;
+  Color _appBarColor =
+      Color.fromARGB(255, 255, 255, 255); // Color predeterminado del AppBar
 
   @override
   void initState() {
     _controller.addListener(onListenerController);
     comercios = ComerciosData.comercios
-        .where((comercio) => comercio.tipo == 'Restaurantes')
+        .where((comercio) => comercio.tipo == widget.tipoComercio)
         .toList();
+    // Establecer el color del AppBar como el color del primer comercio
+    if (comercios.isNotEmpty) {
+      _appBarColor = comercios[0].color;
+    }
     super.initState();
   }
 
@@ -56,12 +50,13 @@ class _MenuRestaurantesScreenState extends State<MenuRestaurantesScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Restaurantes'),
+        title: Text('Comercio'),
         titleTextStyle: TextStyle(
           fontFamily: 'Helvetica-Bold',
           fontSize: 22,
         ),
-        backgroundColor: Color.fromARGB(255, 253, 148, 29),
+        backgroundColor:
+            _appBarColor, // Usar el color del AppBar según el comercio seleccionado
       ),
       body: Column(
         children: [
@@ -86,9 +81,10 @@ class _MenuRestaurantesScreenState extends State<MenuRestaurantesScreen>
           onTap: () {
             final comercioIndex = index;
             if (_focusedIndex == comercioIndex) {
-              _navigateToComerciosEspecificos(context, comercio.nombre);
             } else {
               _setFocusedIndex(comercioIndex);
+              _updateAppBarColor(comercio
+                  .color); // Actualizar el color del AppBar según el comercio seleccionado
             }
           },
           child: _AnimatedListItem(
@@ -125,16 +121,10 @@ class _MenuRestaurantesScreenState extends State<MenuRestaurantesScreen>
     return focusedIndex;
   }
 
-  void _navigateToComerciosEspecificos(
-      BuildContext context, String tipoComercio) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ComerciosEspecificosScreen(
-          tipoComercio: tipoComercio,
-        ),
-      ),
-    );
+  void _updateAppBarColor(Color color) {
+    setState(() {
+      _appBarColor = color;
+    });
   }
 }
 
@@ -186,10 +176,10 @@ class _AnimatedListItem extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.02,
+          left: 0,
           top: MediaQuery.of(context).size.height * 0.008,
           bottom: MediaQuery.of(context).size.height * 0.008,
-          right: MediaQuery.of(context).size.width * 0.02),
+          right: 0),
       child: Stack(
         children: [
           AnimatedContainer(
@@ -224,38 +214,44 @@ class _AnimatedListItem extends StatelessWidget {
               child: AnimatedContainer(
                 duration: animationDuration,
                 curve: Curves.fastEaseInToSlowEaseOut,
-                width: MediaQuery.of(context).size.width / 3,
-                height: MediaQuery.of(context).size.height / 11.5 * scale,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 0,
-            bottom: 0,
-            left: 15,
-            child: AnimatedContainer(
-              duration: animationDuration,
-              curve: Curves.fastEaseInToSlowEaseOut,
-              width: isSelected ? MediaQuery.of(context).size.width / 7 : 30,
-              height: isSelected ? MediaQuery.of(context).size.width / 7 : 30,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-              ),
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: Image.asset(comercio.icono),
-              ),
-            ),
-          ),
-          Positioned.fill(
-            child: Container(
-              alignment: Alignment.center,
-              child: Text(
-                comercio.nombre,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontFamily: 'Helvetica-Bold',
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height / 12 * scale,
+                decoration: BoxDecoration(
+                  borderRadius: borderRadius,
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.black.withOpacity(0.0),
+                      Colors.black.withOpacity(0.5),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.03,
+                    right: MediaQuery.of(context).size.width * 0.03,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        comercio.nombre,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      AnimatedContainer(
+                        duration: animationDuration,
+                        curve: Curves.fastEaseInToSlowEaseOut,
+                        width: MediaQuery.of(context).size.width / 10 * scale,
+                        height: MediaQuery.of(context).size.width / 10 * scale,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -264,10 +260,4 @@ class _AnimatedListItem extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: MenuRestaurantesScreen(),
-  ));
 }

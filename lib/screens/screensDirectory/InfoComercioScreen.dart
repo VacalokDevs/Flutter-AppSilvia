@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../helpers/indicator_builder.dart';
-import '../helpers/marca_silvia_navigator.dart';
-import '../models/noticia.dart';
-import '../../data/noticias_data.dart';
+import '../../helpers/indicator_builder.dart';
+import '../../helpers/marca_silvia_navigator.dart';
+import '../../models/comercio.dart';
+import '../../data/comercios_data.dart';
 
-class InicioScreen extends StatefulWidget {
+class InfoComercioScreen extends StatefulWidget {
   @override
-  _InicioScreenState createState() => _InicioScreenState();
+  _InfoComercioScreenState createState() => _InfoComercioScreenState();
 }
 
-class _InicioScreenState extends State<InicioScreen> {
-  List<Noticia> _noticias = NoticiasData.noticias;
+class _InfoComercioScreenState extends State<InfoComercioScreen> {
+   List<Comercio> comercios = [];
   late List<String> _backgroundImages;
   int _currentIndex = 0;
 
@@ -20,7 +20,7 @@ class _InicioScreenState extends State<InicioScreen> {
   void initState() {
     super.initState();
     _backgroundImages =
-        _noticias.map((noticia) => noticia.backgroundImage).toList();
+        _comercios.map((comercio) => comercio.).toList();
   }
 
   void onPageChanged(int index) {

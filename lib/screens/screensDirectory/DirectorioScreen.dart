@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../data/tipos_comercios_data.dart';
 import '../../models/tipo_comercio.dart';
-import 'screensRestaurantes/MenuRestaurantesScreen.dart';
+import 'screensRestaurantes/ComerciosEspecificosScreen.dart';
 
 class ComerciosEspecificosScreen extends StatelessWidget {
   final String tipoComercio;
@@ -55,13 +55,23 @@ class _DirectorioScreenState extends State<DirectorioScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /* appBar: AppBar(
-        title: Text('Directorio - Comercios'),
-      ), */
-      body: Column(
+      body: Stack(
         children: [
-          _buildEmergenciaWidget(),
-          Expanded(child: _buildComerciosList()),
+          Column(
+            children: [
+              _buildEmergenciaWidget(),
+              Expanded(
+                  child:
+                      Container()), // Espacio vacío para empujar la lista hacia abajo
+            ],
+          ),
+          Positioned(
+            top: 120,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: _buildComerciosList(),
+          ),
         ],
       ),
     );
@@ -81,45 +91,44 @@ class _DirectorioScreenState extends State<DirectorioScreen>
   }
 
   Widget _buildComerciosList() {
-    return ListView.builder(
-      controller: _controller,
-      itemCount:
-          tiposComercio.length - 1, // Restar 1 al número total de elementos
-      itemBuilder: (context, index) {
-        final comercio = tiposComercio[index + 1]; // Ajustar el índice
-        final isFocused = index == _focusedIndex;
-        final scale = isFocused ? 1.8 : 1.0;
-        final borderRadius =
-            isFocused ? BorderRadius.circular(16) : BorderRadius.circular(12);
+    return Stack(
+      children: [
+        _buildEmergenciaWidget(),
+        ListView.builder(
+          controller: _controller,
+          itemCount: tiposComercio.length - 1,
+          itemBuilder: (context, index) {
+            final comercio = tiposComercio[index + 1];
+            final isFocused = index == _focusedIndex;
+            final scale = isFocused ? 1.8 : 1.0;
+            final borderRadius = isFocused
+                ? BorderRadius.circular(16)
+                : BorderRadius.circular(12);
 
-        return GestureDetector(
-          onTap: () {
-            final comercioIndex = index; // Ajustar el índice
-            if (_focusedIndex == comercioIndex) {
-              _navigateToComerciosEspecificos(context, comercio.tipo);
-            } else {
-              _scrollToIndex(comercioIndex);
-              _setFocusedIndex(comercioIndex);
-            }
+            return SizedBox(
+              child: Align(
+                heightFactor: 0.8,
+                child: GestureDetector(
+                  onTap: () {
+                    final comercioIndex = index;
+                    if (_focusedIndex == comercioIndex) {
+                      _navigateToComerciosEspecificos(context, comercio.tipo);
+                    } else {
+                      _setFocusedIndex(comercioIndex);
+                    }
+                  },
+                  child: _AnimatedListItem(
+                    tipoComercio: comercio,
+                    scale: scale,
+                    borderRadius: borderRadius,
+                    animationDuration: Duration(milliseconds: 500),
+                  ),
+                ),
+              ),
+            );
           },
-          child: _AnimatedListItem(
-            tipoComercio: comercio, // Pasar el comercio correspondiente
-            scale: scale,
-            borderRadius: borderRadius,
-            animationDuration: Duration(milliseconds: 500),
-          ),
-        );
-      },
-    );
-  }
-
-  void _scrollToIndex(int index) {
-    final scrollPosition = index * 100.0;
-    final centerPosition = MediaQuery.of(context).size.height / 2;
-    _controller.animateTo(
-      scrollPosition - centerPosition,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.fastEaseInToSlowEaseOut,
+        ),
+      ],
     );
   }
 
@@ -130,17 +139,11 @@ class _DirectorioScreenState extends State<DirectorioScreen>
   }
 
   int _getFocusedIndex() {
-    final centerPosition = MediaQuery.of(context).size.height / 2;
     int focusedIndex = -1;
     double minDistance = double.infinity;
 
     for (int i = 0; i < tiposComercio.length; i++) {
       final itemOffset = i * 100.0;
-      final distance = (_controller.offset + centerPosition - itemOffset).abs();
-      if (distance < minDistance) {
-        minDistance = distance;
-        focusedIndex = i;
-      }
     }
 
     return focusedIndex;
@@ -151,7 +154,8 @@ class _DirectorioScreenState extends State<DirectorioScreen>
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MenuRestaurantesScreen(),
+        builder: (context) =>
+            ListaComerciosEspecificosScreen(tipoComercio: tipoComercio),
       ),
     );
   }
@@ -213,11 +217,7 @@ class _AnimatedListItem extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.02,
-          top: MediaQuery.of(context).size.height * 0.008,
-          bottom: MediaQuery.of(context).size.height * 0.008,
-          right: MediaQuery.of(context).size.width * 0.02),
+      padding: EdgeInsets.only(left: 0, top: 0, bottom: 0, right: 0),
       child: Stack(
         children: [
           AnimatedContainer(
@@ -230,16 +230,16 @@ class _AnimatedListItem extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: Colors.black87,
-                  blurRadius: 3,
-                  spreadRadius: 1,
-                  offset: Offset(1, 3),
+                  blurRadius: 4,
+                  spreadRadius: 4,
+                  offset: Offset(4, 3),
                 ),
               ],
               image: DecorationImage(
                 image: AssetImage(tipoComercio.tipoImagen),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.7),
+                  Colors.black.withOpacity(0.6),
                   BlendMode.dstATop,
                 ),
               ),
