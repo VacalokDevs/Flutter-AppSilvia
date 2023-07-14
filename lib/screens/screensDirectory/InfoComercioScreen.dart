@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../helpers/indicator_builder.dart';
-import '../../helpers/marca_silvia_navigator.dart';
 import '../../models/comercio.dart';
 import '../../data/comercios_data.dart';
 
 class InfoComercioScreen extends StatefulWidget {
+  final Comercio comercio;
+
+  InfoComercioScreen({required this.comercio});
+
   @override
   _InfoComercioScreenState createState() => _InfoComercioScreenState();
 }
 
 class _InfoComercioScreenState extends State<InfoComercioScreen> {
-   List<Comercio> comercios = [];
   late List<String> _backgroundImages;
   int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _backgroundImages =
-        _comercios.map((comercio) => comercio.).toList();
+    _backgroundImages = [widget.comercio.imagenComercio];
   }
 
   void onPageChanged(int index) {
@@ -30,399 +30,147 @@ class _InfoComercioScreenState extends State<InfoComercioScreen> {
   }
 
   List<Widget> _buildIndicator() {
-    return IndicatorBuilder.buildIndicator(_currentIndex, _noticias.length);
-  }
-
-  PageController _pageController = PageController();
-  bool _isButtonPressed = false;
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
+    return IndicatorBuilder.buildIndicator(
+        _currentIndex, _backgroundImages.length);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(_currentIndex == 0 ? 0 : 25),
-          topRight: Radius.circular(_currentIndex == 0 ? 0 : 25),
+      appBar: AppBar(
+        title: Text(widget.comercio.nombre),
+        titleTextStyle: TextStyle(
+          fontFamily: 'Helvetica-Bold',
+          fontSize: 22,
         ),
-        child: Stack(
-          children: [
-            PageView.builder(
-              controller: _pageController,
-              itemCount: _noticias.length,
-              onPageChanged: onPageChanged,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () {
-                    // Acción al hacer clic en la noticia
-                  },
-                  onVerticalDragEnd: (details) {
-                    if (details.primaryVelocity != null &&
-                        details.primaryVelocity! < 0) {
-                      // Acción al hacer un deslizamiento vertical hacia arriba en la noticia
-                    }
-                  },
-                  child: AnimatedBuilder(
-                    animation: _pageController,
-                    builder: (BuildContext context, Widget? child) {
-                      double value = 1.0;
-                      if (_pageController.position.haveDimensions) {
-                        value = _pageController.page! - index;
-                        value = (1 - (value.abs() * 0.4)).clamp(0.5, 2.0);
-                      }
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(25.0),
-                        child: Transform.scale(
-                          scale: Curves.easeOut.transform(value),
-                          child: Stack(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.2),
-                                      blurRadius: 4,
-                                      offset: Offset(0, 4),
-                                    ),
-                                  ],
-                                  image: DecorationImage(
-                                    image: AssetImage(_backgroundImages[index]),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              ShaderMask(
-                                shaderCallback: (Rect bounds) {
-                                  return LinearGradient(
-                                    begin: Alignment.bottomCenter,
-                                    end: Alignment.topCenter,
-                                    colors: [
-                                      Colors.black.withOpacity(0.75),
-                                      Colors.black.withOpacity(0.0)
-                                    ],
-                                    stops: [0.0, 0.6],
-                                  ).createShader(bounds);
-                                },
-                                blendMode: BlendMode.dstIn,
-                                child: Container(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Positioned(
-                                left: 0,
-                                right: 0,
-                                bottom: MediaQuery.of(context).size.height / 18,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.fromLTRB(
-                                        MediaQuery.of(context).size.width *
-                                            0.08,
-                                        0,
-                                        MediaQuery.of(context).size.width *
-                                            0.08,
-                                        5,
-                                      ),
-                                      child: AnimatedBuilder(
-                                        animation: _pageController,
-                                        builder: (BuildContext context,
-                                            Widget? child) {
-                                          double value = 1.0;
-                                          if (_pageController
-                                              .position.haveDimensions) {
-                                            value = _pageController.page! -
-                                                _currentIndex;
-                                            value = (1 - (value.abs() * 3))
-                                                .clamp(0.0, 1.0);
-                                          }
-                                          return Opacity(
-                                            opacity: value,
-                                            child: Transform.translate(
-                                              offset:
-                                                  Offset(0, (1 - value) * 100),
-                                              child: child,
-                                            ),
-                                          );
-                                        },
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            _noticias[_currentIndex].titulo,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 28,
-                                              fontFamily: 'Helvetica-Bold',
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.fromLTRB(
-                                        MediaQuery.of(context).size.width *
-                                            0.08,
-                                        0,
-                                        MediaQuery.of(context).size.width *
-                                            0.08,
-                                        10,
-                                      ),
-                                      child: AnimatedBuilder(
-                                        animation: _pageController,
-                                        builder: (BuildContext context,
-                                            Widget? child) {
-                                          double value = 1.0;
-                                          if (_pageController
-                                              .position.haveDimensions) {
-                                            value = _pageController.page! -
-                                                _currentIndex;
-                                            value = (1 - (value.abs() * 3))
-                                                .clamp(0.0, 1.0);
-                                          }
-                                          return Opacity(
-                                            opacity: value,
-                                            child: Transform.translate(
-                                              offset:
-                                                  Offset(0, (1 - value) * 100),
-                                              child: child,
-                                            ),
-                                          );
-                                        },
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            _noticias[_currentIndex]
-                                                .descripcion,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18,
-                                              fontFamily: 'Helvetica-Light',
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.fromLTRB(
-                                        MediaQuery.of(context).size.width *
-                                            0.08,
-                                        0,
-                                        MediaQuery.of(context).size.width *
-                                            0.08,
-                                        0,
-                                      ),
-                                      child: AnimatedBuilder(
-                                        animation: _pageController,
-                                        builder: (BuildContext context,
-                                            Widget? child) {
-                                          double value = 1.0;
-                                          if (_pageController
-                                              .position.haveDimensions) {
-                                            value = _pageController.page! -
-                                                _currentIndex;
-                                            value = (1 - (value.abs() * 3))
-                                                .clamp(0.0, 1.0);
-                                          }
-                                          return Opacity(
-                                            opacity: value,
-                                            child: Transform.translate(
-                                              offset:
-                                                  Offset(0, (1 - value) * 100),
-                                              child: child,
-                                            ),
-                                          );
-                                        },
-                                        child: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Row(
-                                            children: _noticias[_currentIndex]
-                                                .imagenesRelacionadas
-                                                .map((imagen) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    _backgroundImages[index] =
-                                                        imagen;
-                                                  });
-                                                },
-                                                child: Container(
-                                                  margin: EdgeInsets.only(
-                                                      right: 10),
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      4.6,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      4.1,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    image: DecorationImage(
-                                                      image: AssetImage(imagen),
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            }).toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              },
-            ),
-            Positioned(
-              bottom: MediaQuery.of(context).size.height / 55,
-              left: 0,
-              right: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: _buildIndicator(),
+        backgroundColor: widget.comercio.color,
+      ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(_backgroundImages[_currentIndex]),
+                fit: BoxFit.cover,
               ),
             ),
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * (0.08),
-                  vertical: MediaQuery.of(context).size.height / 10,
+          ),
+          ShaderMask(
+            shaderCallback: (Rect bounds) {
+              return LinearGradient(
+                begin: Alignment.bottomCenter,
+                end: Alignment(0, -0.3),
+                colors: [Colors.black, Colors.transparent],
+                stops: [0.0, 0.75],
+              ).createShader(bounds);
+            },
+            blendMode: BlendMode.srcATop,
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(_backgroundImages[_currentIndex]),
+                  fit: BoxFit.cover,
                 ),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.width / 4.7,
-                  width: MediaQuery.of(context).size.width / 4.7,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.27),
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    padding: EdgeInsets.all(0),
-                    child: LayoutBuilder(
-                      builder:
-                          (BuildContext context, BoxConstraints constraints) {
-                        final double fontSizeNumber =
-                            constraints.maxHeight * 0.62;
-                        final double fontSizeMonth =
-                            constraints.maxHeight * 0.13;
-
-                        return Stack(
-                          alignment: Alignment.center,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 35),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Container(),
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FractionallySizedBox(
+                    widthFactor: 1.0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
                           children: [
+                            Image.asset(
+                              'assets/images/resourcesMarcaSilvia/MarcaSilvia-Boton.png', // Reemplaza 'ruta_de_la_imagen' con la ruta de la imagen que deseas mostrar
+                              width: 25,
+                              height: 25,
+                            ),
+                            SizedBox(
+                                width:
+                                    8), // Ajusta el espacio entre la imagen y el texto según tus necesidades
                             Text(
-                              DateFormat('d').format(DateTime.now()),
+                              widget.comercio.direccion,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: fontSizeNumber,
-                                fontFamily: 'Helvetica-Bold',
-                              ),
-                            ),
-                            Positioned(
-                              bottom: fontSizeMonth * 0.8,
-                              child: Text(
-                                DateFormat('MMMM', 'es_ES')
-                                    .format(DateTime.now())
-                                    .toUpperCase(),
-                                style: TextStyle(
-                                  letterSpacing: 0.5,
-                                  color: Colors.white,
-                                  fontSize: fontSizeMonth,
-                                  fontFamily: 'Helvetica-Bold',
-                                ),
+                                fontSize: 18,
+                                fontFamily: 'Helvetica-Light',
                               ),
                             ),
                           ],
-                        );
-                      },
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * (0.08)),
-                child: GestureDetector(
-                  onTap: () {
-                    MarcaSilviaNavigator.abrirMarcaSilvia(context);
-                  },
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 5),
-                    width: 102,
-                    height: 88,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.5),
-                          blurRadius: 6,
-                          offset: Offset(0, 4),
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          children: [
+                            Image.asset(
+                              'assets/images/resourcesMarcaSilvia/MarcaSilvia-Boton.png', // Reemplaza 'ruta_de_la_imagen' con la ruta de la imagen que deseas mostrar
+                              width: 25,
+                              height: 25,
+                            ),
+                            SizedBox(
+                                width:
+                                    8), // Ajusta el espacio entre la imagen y el texto según tus necesidades
+                            Text(
+                              widget.comercio.telefono,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'Helvetica-Light',
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: widget.comercio.imagenesRelacionadas
+                                .asMap()
+                                .entries
+                                .map((entry) {
+                              final index = entry.key;
+                              final imagen = entry.value;
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _backgroundImages[_currentIndex] = imagen;
+                                  });
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 15),
+                                  height:
+                                      MediaQuery.of(context).size.width / 4.6,
+                                  width:
+                                      MediaQuery.of(context).size.width / 4.1,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      image: AssetImage(imagen),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
                         ),
                       ],
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      ),
-                    ),
-                    padding: EdgeInsets.all(0),
-                    child: LayoutBuilder(
-                      builder:
-                          (BuildContext context, BoxConstraints constraints) {
-                        final double scaleFactor = constraints.maxWidth / 64;
-
-                        return Transform.scale(
-                          scale: scaleFactor,
-                          child: Container(
-                            padding: EdgeInsets.all(16),
-                            child: _isButtonPressed
-                                ? Image.asset(
-                                    'assets/images/resourcesMarcaSilvia/MarcaSilvia-Boton.png',
-                                    height: 18,
-                                    width: 18,
-                                  )
-                                : Image.asset(
-                                    'assets/images/resourcesMarcaSilvia/MarcaSilvia-Boton.png',
-                                    height: 24,
-                                    width: 24,
-                                  ),
-                          ),
-                        );
-                      },
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-            if (_isButtonPressed)
-              Positioned.fill(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _isButtonPressed = false;
-                    });
-                  },
-                ),
-              ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

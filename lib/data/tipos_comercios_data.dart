@@ -41,25 +41,25 @@ class TiposComercioData {
     TipoComercio(
       tipo: 'Próximamente Más',
       color: Color.fromARGB(171, 155, 1, 159),
-      tipoImagen: 'assets/images/MarcaSilviaBG.jpg',
+      tipoImagen: 'assets/images/directorio/Proximamente.png',
       icono: 'assets/images/directorio/iconos/icon_Prom.png',
     ),
     TipoComercio(
       tipo: 'Próximamente Más',
       color: Color.fromARGB(171, 144, 2, 74),
-      tipoImagen: 'assets/images/MarcaSilviaBG.jpg',
+      tipoImagen: 'assets/images/directorio/Proximamente.png',
       icono: 'assets/images/directorio/iconos/icon_Prom.png',
     ),
     TipoComercio(
       tipo: 'Próximamente Más',
       color: Color.fromARGB(171, 127, 0, 21),
-      tipoImagen: 'assets/images/MarcaSilviaBG.jpg',
+      tipoImagen: 'assets/images/directorio/Proximamente.png',
       icono: 'assets/images/directorio/iconos/icon_Prom.png',
     ),
     TipoComercio(
       tipo: 'Próximamente Más',
       color: Color.fromARGB(171, 180, 0, 1),
-      tipoImagen: 'assets/images/MarcaSilviaBG.jpg',
+      tipoImagen: 'assets/images/directorio/Proximamente.png',
       icono: 'assets/images/directorio/iconos/icon_Prom.png',
     )
   ];

@@ -76,7 +76,7 @@ class _InicioScreenState extends State<InicioScreen> {
                         value = (1 - (value.abs() * 0.4)).clamp(0.5, 2.0);
                       }
                       return ClipRRect(
-                        borderRadius: BorderRadius.circular(25.0),
+                        borderRadius: BorderRadius.circular(25),
                         child: Transform.scale(
                           scale: Curves.easeOut.transform(value),
                           child: Stack(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../data/comercios_data.dart';
-import '../../../models/comercio.dart';
+import '../../data/comercios_data.dart';
+import '../../models/comercio.dart';
+import 'InfoComercioScreen.dart';
 
 class ListaComerciosEspecificosScreen extends StatefulWidget {
   final String tipoComercio;
@@ -20,6 +21,15 @@ class _ListaComerciosEspecificosScreenState
   int _focusedIndex = -1;
   Color _appBarColor =
       Color.fromARGB(255, 255, 255, 255); // Color predeterminado del AppBar
+
+  void _navigateToInfoComercioScreen(Comercio comercio) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => InfoComercioScreen(comercio: comercio),
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -50,13 +60,13 @@ class _ListaComerciosEspecificosScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Comercio'),
+        title: Text(widget
+            .tipoComercio), // Usar widget.tipoComercio para acceder al valor
         titleTextStyle: TextStyle(
           fontFamily: 'Helvetica-Bold',
           fontSize: 22,
         ),
-        backgroundColor:
-            _appBarColor, // Usar el color del AppBar según el comercio seleccionado
+        backgroundColor: _appBarColor,
       ),
       body: Column(
         children: [
@@ -80,12 +90,11 @@ class _ListaComerciosEspecificosScreenState
         return GestureDetector(
           onTap: () {
             final comercioIndex = index;
-            if (_focusedIndex == comercioIndex) {
-            } else {
+            if (_focusedIndex != comercioIndex) {
               _setFocusedIndex(comercioIndex);
-              _updateAppBarColor(comercio
-                  .color); // Actualizar el color del AppBar según el comercio seleccionado
+              _updateAppBarColor(comercio.color);
             }
+            _navigateToInfoComercioScreen(comercio);
           },
           child: _AnimatedListItem(
             comercio: comercio,
@@ -177,8 +186,8 @@ class _AnimatedListItem extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(
           left: 0,
-          top: MediaQuery.of(context).size.height * 0.008,
-          bottom: MediaQuery.of(context).size.height * 0.008,
+          top: MediaQuery.of(context).size.height * 0.004,
+          bottom: MediaQuery.of(context).size.height * 0.004,
           right: 0),
       child: Stack(
         children: [

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'My_Home_Page.dart';
+import 'BottomTabMenu.dart';
 
 void main() {
   initializeDateFormatting('es_ES', null).then((_) {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       home: Container(
         color: Color.fromARGB(255, 255, 255, 255), // Cambia el color aquí
         child: SafeArea(
-          child: MyHomePage(),
+          child: BottomTabMenu(),
         ),
       ),
     );

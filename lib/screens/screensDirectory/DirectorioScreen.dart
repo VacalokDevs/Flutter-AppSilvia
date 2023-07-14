@@ -1,25 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../data/tipos_comercios_data.dart';
 import '../../models/tipo_comercio.dart';
-import 'screensRestaurantes/ComerciosEspecificosScreen.dart';
-
-class ComerciosEspecificosScreen extends StatelessWidget {
-  final String tipoComercio;
-
-  ComerciosEspecificosScreen({required this.tipoComercio});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Comercios - $tipoComercio'),
-      ),
-      body: Center(
-        child: Text('Lista de comercios $tipoComercio'),
-      ),
-    );
-  }
-}
+import 'ComerciosEspecificosScreen.dart';
+import '../../BottomTabMenu.dart';
 
 class DirectorioScreen extends StatefulWidget {
   @override
@@ -66,7 +49,7 @@ class _DirectorioScreenState extends State<DirectorioScreen>
             ],
           ),
           Positioned(
-            top: 120,
+            top: 160,
             bottom: 0,
             left: 0,
             right: 0,
@@ -80,12 +63,14 @@ class _DirectorioScreenState extends State<DirectorioScreen>
   Widget _buildEmergenciaWidget() {
     return GestureDetector(
       onTap: () {
-        _navigateToContactosEmergencia(context);
+        _navigateToComerciosEspecificos(context, 'Emergencia');
+        _setFocusedIndex(-1);
       },
       child: _AnimatedListItem(
         tipoComercio: tiposComercio[0],
-        scale: 1.8,
-        borderRadius: BorderRadius.circular(12),
+        scale: 2.3,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(25), topRight: Radius.circular(25)),
       ),
     );
   }
@@ -102,27 +87,22 @@ class _DirectorioScreenState extends State<DirectorioScreen>
             final isFocused = index == _focusedIndex;
             final scale = isFocused ? 1.8 : 1.0;
             final borderRadius = isFocused
-                ? BorderRadius.circular(16)
+                ? BorderRadius.circular(12)
                 : BorderRadius.circular(12);
 
             return SizedBox(
               child: Align(
                 heightFactor: 0.8,
-                child: GestureDetector(
+                child: _AnimatedListItem(
+                  tipoComercio: comercio,
+                  scale: scale,
+                  borderRadius: borderRadius,
+                  animationDuration: Duration(milliseconds: 500),
                   onTap: () {
                     final comercioIndex = index;
-                    if (_focusedIndex == comercioIndex) {
-                      _navigateToComerciosEspecificos(context, comercio.tipo);
-                    } else {
-                      _setFocusedIndex(comercioIndex);
-                    }
+                    _navigateToComerciosEspecificos(context, comercio.tipo);
+                    _setFocusedIndex(index);
                   },
-                  child: _AnimatedListItem(
-                    tipoComercio: comercio,
-                    scale: scale,
-                    borderRadius: borderRadius,
-                    animationDuration: Duration(milliseconds: 500),
-                  ),
                 ),
               ),
             );
@@ -200,12 +180,14 @@ class _AnimatedListItem extends StatelessWidget {
   final double scale;
   final BorderRadius borderRadius;
   final Duration animationDuration;
+  final VoidCallback? onTap;
 
   _AnimatedListItem({
     required this.tipoComercio,
     required this.scale,
     required this.borderRadius,
     this.animationDuration = const Duration(milliseconds: 150),
+    this.onTap,
   });
 
   bool isSelected = false; // Variable para indicar el estado de selecci
@@ -216,79 +198,82 @@ class _AnimatedListItem extends StatelessWidget {
       isSelected = true;
     }
 
-    return Padding(
-      padding: EdgeInsets.only(left: 0, top: 0, bottom: 0, right: 0),
-      child: Stack(
-        children: [
-          AnimatedContainer(
-            duration: animationDuration,
-            curve: Curves.fastEaseInToSlowEaseOut,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 12 * scale,
-            decoration: BoxDecoration(
-              borderRadius: borderRadius,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black87,
-                  blurRadius: 4,
-                  spreadRadius: 4,
-                  offset: Offset(4, 3),
-                ),
-              ],
-              image: DecorationImage(
-                image: AssetImage(tipoComercio.tipoImagen),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.6),
-                  BlendMode.dstATop,
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.only(left: 0, top: 0, bottom: 0, right: 0),
+        child: Stack(
+          children: [
+            AnimatedContainer(
+              duration: animationDuration,
+              curve: Curves.fastEaseInToSlowEaseOut,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 12 * scale,
+              decoration: BoxDecoration(
+                borderRadius: borderRadius,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black87,
+                    blurRadius: 4,
+                    spreadRadius: 4,
+                    offset: Offset(4, 3),
+                  ),
+                ],
+                image: DecorationImage(
+                  image: AssetImage(tipoComercio.tipoImagen),
+                  fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.6),
+                    BlendMode.dstATop,
+                  ),
                 ),
               ),
             ),
-          ),
-          ClipRRect(
-            borderRadius: borderRadius,
-            child: CustomPaint(
-              painter: _DiagonalPainter(color: tipoComercio.color),
+            ClipRRect(
+              borderRadius: borderRadius,
+              child: CustomPaint(
+                painter: _DiagonalPainter(color: tipoComercio.color),
+                child: AnimatedContainer(
+                  duration: animationDuration,
+                  curve: Curves.fastEaseInToSlowEaseOut,
+                  width: MediaQuery.of(context).size.width / 3,
+                  height: MediaQuery.of(context).size.height / 12 * scale,
+                ),
+              ),
+            ),
+            Positioned(
+              top: 0,
+              bottom: 0,
+              left: 15,
               child: AnimatedContainer(
                 duration: animationDuration,
                 curve: Curves.fastEaseInToSlowEaseOut,
-                width: MediaQuery.of(context).size.width / 3,
-                height: MediaQuery.of(context).size.height / 12 * scale,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 0,
-            bottom: 0,
-            left: 15,
-            child: AnimatedContainer(
-              duration: animationDuration,
-              curve: Curves.fastEaseInToSlowEaseOut,
-              width: isSelected ? MediaQuery.of(context).size.width / 7 : 30,
-              height: isSelected ? MediaQuery.of(context).size.width / 7 : 30,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-              ),
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: Image.asset(tipoComercio.icono),
-              ),
-            ),
-          ),
-          Positioned.fill(
-            child: Container(
-              alignment: Alignment.center,
-              child: Text(
-                tipoComercio.tipo,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontFamily: 'Helvetica-Bold',
+                width: isSelected ? MediaQuery.of(context).size.width / 7 : 30,
+                height: isSelected ? MediaQuery.of(context).size.width / 7 : 30,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Image.asset(tipoComercio.icono),
                 ),
               ),
             ),
-          ),
-        ],
+            Positioned.fill(
+              child: Container(
+                alignment: Alignment.center,
+                child: Text(
+                  tipoComercio.tipo,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontFamily: 'Helvetica-Bold',
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -309,18 +294,13 @@ class ContactosEmergenciaScreen extends StatelessWidget {
 }
 
 void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  runApp(
+    MaterialApp(
       title: 'Directorio de Comercios',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: DirectorioScreen(),
-    );
-  }
+      home: BottomTabMenu(),
+    ),
+  );
 }

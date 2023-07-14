@@ -6,12 +6,12 @@ import 'screens/DeInteresScreen.dart';
 import 'screens/VacalokScreen.dart';
 import 'helpers/flutterfont.dart';
 
-class MyHomePage extends StatefulWidget {
+class BottomTabMenu extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _BottomTabMenuState createState() => _BottomTabMenuState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _BottomTabMenuState extends State<BottomTabMenu> {
   int _currentIndex = 0;
   double _selectedIconSize = 28.0;
   double _unselectedIconSize = 24.0;
@@ -37,7 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _screens,
+      ),
       bottomNavigationBar: ClipRRect(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(20),
