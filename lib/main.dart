@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'BottomTabMenu.dart';
+import './screens/splash_screen.dart';
 
 void main() {
   initializeDateFormatting('es_ES', null).then((_) {
-    runApp(MyApp());
+    runApp(const MyApp());
   });
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,11 +19,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: Container(
-        color: Color.fromARGB(255, 255, 255, 255), // Cambia el color aquí
-        child: SafeArea(
-          child: BottomTabMenu(),
-        ),
+      home: const SplashScreen(
+        child: BottomTabMenu(),
       ),
     );
   }

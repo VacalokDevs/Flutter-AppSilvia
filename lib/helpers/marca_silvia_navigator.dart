@@ -7,14 +7,14 @@ class MarcaSilviaNavigator {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) {
-          return MarcaSilviaScreen();
+          return const MarcaSilviaScreen();
         },
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          final curve = Curves.easeInOut;
+          const curve = Curves.easeInOut;
 
           return SlideTransition(
             position: Tween<Offset>(
-              begin: Offset(0.0, -1.0),
+              begin: const Offset(0.0, -1.0),
               end: Offset.zero,
             ).animate(CurvedAnimation(
               parent: animation,

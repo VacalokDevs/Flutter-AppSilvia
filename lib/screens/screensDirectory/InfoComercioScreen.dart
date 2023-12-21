@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../helpers/indicator_builder.dart';
 import '../../models/comercio.dart';
-import '../../data/comercios_data.dart';
+import '../../widgets/back_button.dart';
 
 class InfoComercioScreen extends StatefulWidget {
   final Comercio comercio;
 
-  InfoComercioScreen({required this.comercio});
+  const InfoComercioScreen({Key? key, required this.comercio}) : super(key: key);
 
   @override
   _InfoComercioScreenState createState() => _InfoComercioScreenState();
@@ -34,17 +35,183 @@ class _InfoComercioScreenState extends State<InfoComercioScreen> {
         _currentIndex, _backgroundImages.length);
   }
 
+  Widget _buildHeader() {
+    final List<Widget> headerItems = [];
+
+    if (widget.comercio.direccion.isNotEmpty) {
+      headerItems.add(
+        GestureDetector(
+          onTap: () async {
+            final googleMapsUri = Uri.parse(widget.comercio.googleMapsLink);
+            await launchUrl(googleMapsUri, mode: LaunchMode.externalApplication);
+          },
+          child: Row(
+            children: [
+              Image.asset(
+                'assets/images/iconos/Ubication-White.png',
+                width: 35,
+                height: 35,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                child: Text(
+                  widget.comercio.direccion,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontFamily: 'Helvetica-Light',
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (widget.comercio.telefono.isNotEmpty) {
+      headerItems.add(const SizedBox(height: 15));
+      headerItems.add(
+        GestureDetector(
+          onTap: () async {
+            final whatsappUri = Uri.parse(widget.comercio.linkWhatsApp);
+            await launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
+          },
+          child: Row(
+            children: [
+              Image.asset(
+                'assets/images/iconos/WhatsApp-White.png',
+                width: 35,
+                height: 35,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Text(
+                widget.comercio.telefono,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontFamily: 'Helvetica-Light',
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (widget.comercio.linkFacebook.isNotEmpty) {
+      headerItems.add(const SizedBox(height: 15));
+      headerItems.add(
+        GestureDetector(
+          onTap: () async {
+            final facebookUri = Uri.parse(widget.comercio.linkFacebook);
+            await launchUrl(facebookUri, mode: LaunchMode.externalApplication);
+          },
+          child: Row(
+            children: [
+              Image.asset(
+                'assets/images/iconos/Facebook-White.png',
+                width: 35,
+                height: 35,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              
+              Text(
+                widget.comercio.nombre,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontFamily: 'Helvetica-Light',
+                ),
+              ),
+              
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (widget.comercio.linkInstagram.isNotEmpty) {
+      headerItems.add(const SizedBox(height: 15));
+      headerItems.add(
+        GestureDetector(
+          onTap: () async {
+            final instagramUri = Uri.parse('https://instagram.com/${widget.comercio.linkInstagram}');
+            await launchUrl(instagramUri, mode: LaunchMode.externalApplication);
+          },
+          child: Row(
+            children: [
+              Image.asset(
+                'assets/images/iconos/Instagram-White.png',
+                width: 35,
+                height: 35,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Text(
+                widget.comercio.linkInstagram,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontFamily: 'Helvetica-Light',
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: headerItems,
+    );
+  }
+
+  Widget _buildImageGallery() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: widget.comercio.imagenesRelacionadas
+            .asMap()
+            .entries
+            .map((entry) {
+          final index = entry.key;
+          final imagen = entry.value;
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                _backgroundImages[_currentIndex] = imagen;
+              });
+            },
+            child: Container(
+              margin: const EdgeInsets.only(right: 15),
+              height: MediaQuery.of(context).size.width / 4.6,
+              width: MediaQuery.of(context).size.width / 4.1,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: AssetImage(imagen),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.comercio.nombre),
-        titleTextStyle: TextStyle(
-          fontFamily: 'Helvetica-Bold',
-          fontSize: 22,
-        ),
-        backgroundColor: widget.comercio.color,
-      ),
       body: Stack(
         children: [
           Container(
@@ -57,10 +224,10 @@ class _InfoComercioScreenState extends State<InfoComercioScreen> {
           ),
           ShaderMask(
             shaderCallback: (Rect bounds) {
-              return LinearGradient(
+              return const LinearGradient(
                 begin: Alignment.bottomCenter,
-                end: Alignment(0, -0.3),
-                colors: [Colors.black, Colors.transparent],
+                end: Alignment(0, -0.6),
+                colors: [Colors.black, Color.fromARGB(0, 0, 0, 0)],
                 stops: [0.0, 0.75],
               ).createShader(bounds);
             },
@@ -74,8 +241,12 @@ class _InfoComercioScreenState extends State<InfoComercioScreen> {
               ),
             ),
           ),
+          BackButtonWidget(
+          onPressed: () {
+            Navigator.of(context).pop();
+          }),
           Padding(
-            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 35),
+            padding: const EdgeInsets.only(left: 30, right: 30, bottom: 45),
             child: Column(
               children: [
                 Expanded(
@@ -90,79 +261,24 @@ class _InfoComercioScreenState extends State<InfoComercioScreen> {
                       children: [
                         Row(
                           children: [
-                            Image.asset(
-                              'assets/images/resourcesMarcaSilvia/MarcaSilvia-Boton.png', // Reemplaza 'ruta_de_la_imagen' con la ruta de la imagen que deseas mostrar
-                              width: 25,
-                              height: 25,
+                            const SizedBox(
+                              height: 50,
                             ),
-                            SizedBox(
-                                width:
-                                    8), // Ajusta el espacio entre la imagen y el texto según tus necesidades
-                            Text(
-                              widget.comercio.direccion,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Helvetica-Light',
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 20),
-                        Row(
-                          children: [
-                            Image.asset(
-                              'assets/images/resourcesMarcaSilvia/MarcaSilvia-Boton.png', // Reemplaza 'ruta_de_la_imagen' con la ruta de la imagen que deseas mostrar
-                              width: 25,
-                              height: 25,
-                            ),
-                            SizedBox(
-                                width:
-                                    8), // Ajusta el espacio entre la imagen y el texto según tus necesidades
-                            Text(
-                              widget.comercio.telefono,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Helvetica-Light',
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 20),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: widget.comercio.imagenesRelacionadas
-                                .asMap()
-                                .entries
-                                .map((entry) {
-                              final index = entry.key;
-                              final imagen = entry.value;
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _backgroundImages[_currentIndex] = imagen;
-                                  });
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(right: 15),
-                                  height:
-                                      MediaQuery.of(context).size.width / 4.6,
-                                  width:
-                                      MediaQuery.of(context).size.width / 4.1,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                      image: AssetImage(imagen),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                            Expanded(
+                              child: Text(
+                                widget.comercio.nombre,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 36,
+                                  fontFamily: 'Helvetica-Bold',
                                 ),
-                              );
-                            }).toList(),
-                          ),
+                              ),
+                            ),
+                          ],
                         ),
+                        _buildHeader(),
+                        const SizedBox(height: 30),
+                        _buildImageGallery(),
                       ],
                     ),
                   ),

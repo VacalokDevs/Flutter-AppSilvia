@@ -5,6 +5,8 @@ import 'ComerciosEspecificosScreen.dart';
 import '../../BottomTabMenu.dart';
 
 class DirectorioScreen extends StatefulWidget {
+  const DirectorioScreen({super.key});
+
   @override
   _DirectorioScreenState createState() => _DirectorioScreenState();
 }
@@ -49,7 +51,7 @@ class _DirectorioScreenState extends State<DirectorioScreen>
             ],
           ),
           Positioned(
-            top: 160,
+            top: MediaQuery.of(context).size.width*0.25,
             bottom: 0,
             left: 0,
             right: 0,
@@ -69,7 +71,7 @@ class _DirectorioScreenState extends State<DirectorioScreen>
       child: _AnimatedListItem(
         tipoComercio: tiposComercio[0],
         scale: 2.3,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(25), topRight: Radius.circular(25)),
       ),
     );
@@ -78,7 +80,6 @@ class _DirectorioScreenState extends State<DirectorioScreen>
   Widget _buildComerciosList() {
     return Stack(
       children: [
-        _buildEmergenciaWidget(),
         ListView.builder(
           controller: _controller,
           itemCount: tiposComercio.length - 1,
@@ -97,11 +98,12 @@ class _DirectorioScreenState extends State<DirectorioScreen>
                   tipoComercio: comercio,
                   scale: scale,
                   borderRadius: borderRadius,
-                  animationDuration: Duration(milliseconds: 500),
-                  onTap: () {
+                  animationDuration: const Duration(milliseconds: 300),
+                  onTap: () async {
                     final comercioIndex = index;
-                    _navigateToComerciosEspecificos(context, comercio.tipo);
                     _setFocusedIndex(index);
+                    await Future.delayed(const Duration(milliseconds: 290));
+                    _navigateToComerciosEspecificos(context, comercio.tipo);
                   },
                 ),
               ),
@@ -136,15 +138,6 @@ class _DirectorioScreenState extends State<DirectorioScreen>
       MaterialPageRoute(
         builder: (context) =>
             ListaComerciosEspecificosScreen(tipoComercio: tipoComercio),
-      ),
-    );
-  }
-
-  void _navigateToContactosEmergencia(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ContactosEmergenciaScreen(),
       ),
     );
   }
@@ -201,7 +194,7 @@ class _AnimatedListItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: EdgeInsets.only(left: 0, top: 0, bottom: 0, right: 0),
+        padding: const EdgeInsets.only(left: 0, top: 0, bottom: 0, right: 0),
         child: Stack(
           children: [
             AnimatedContainer(
@@ -211,7 +204,7 @@ class _AnimatedListItem extends StatelessWidget {
               height: MediaQuery.of(context).size.height / 12 * scale,
               decoration: BoxDecoration(
                 borderRadius: borderRadius,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black87,
                     blurRadius: 4,
@@ -223,7 +216,7 @@ class _AnimatedListItem extends StatelessWidget {
                   image: AssetImage(tipoComercio.tipoImagen),
                   fit: BoxFit.cover,
                   colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.6),
+                    Colors.black.withOpacity(0.55),
                     BlendMode.dstATop,
                   ),
                 ),
@@ -250,7 +243,7 @@ class _AnimatedListItem extends StatelessWidget {
                 curve: Curves.fastEaseInToSlowEaseOut,
                 width: isSelected ? MediaQuery.of(context).size.width / 7 : 30,
                 height: isSelected ? MediaQuery.of(context).size.width / 7 : 30,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.transparent,
                 ),
                 child: FittedBox(
@@ -264,7 +257,7 @@ class _AnimatedListItem extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   tipoComercio.tipo,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontFamily: 'Helvetica-Bold',
@@ -279,20 +272,6 @@ class _AnimatedListItem extends StatelessWidget {
   }
 }
 
-class ContactosEmergenciaScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Contactos de Emergencia'),
-      ),
-      body: Center(
-        child: Text('Lista de contactos de emergencia'),
-      ),
-    );
-  }
-}
-
 void main() {
   runApp(
     MaterialApp(
@@ -300,7 +279,7 @@ void main() {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: BottomTabMenu(),
+      home: const BottomTabMenu(),
     ),
   );
 }

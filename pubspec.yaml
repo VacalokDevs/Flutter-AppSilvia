@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.6+6
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
@@ -37,10 +37,13 @@ dependencies:
   intl: ^0.18.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.6
   flutter_svg: ^2.0.7
   sliding_up_panel: ^2.0.0+1
   carousel_slider: ^4.2.1
+  url_launcher: ^6.1.13
+  auto_animated: ^3.2.0
+  animated_text_kit: ^4.2.2
   
 
 dev_dependencies:
@@ -52,7 +55,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -62,6 +65,8 @@ dev_dependencies:
 flutter:
   
   assets: 
+    - assets/my_app_icon.png
+
     - assets/images/1.jpg
     - assets/images/MarcaSilviaBG.jpg
 
@@ -74,16 +79,13 @@ flutter:
     - assets/images/resourcesMarcaSilvia/mS_Profits.png
     - assets/images/resourcesMarcaSilvia/mS_Alert.svg.png
     - assets/images/resourcesMarcaSilvia/mS_Ambassador.png
+
+    - assets/images/splash/B_icon.png
+    - assets/images/splash/bienvenido.png
     
+    
+  #Imagenes Noticias
     - assets/images/noticias/noticia1/noticia1_0.jpg
-    - assets/images/noticias/noticia1/noticia1_1.jpg
-    - assets/images/noticias/noticia1/noticia1_2.jpg
-    - assets/images/noticias/noticia1/noticia1_3.jpg
-    - assets/images/noticias/noticia1/noticia1_4.jpg
-    - assets/images/noticias/noticia1/noticia1_5.jpg
-    - assets/images/noticias/noticia1/noticia1_6.jpg
-    - assets/images/noticias/noticia1/noticia1_7.jpg
-    - assets/images/noticias/noticia1/noticia1_8.jpg
 
     - assets/images/noticias/noticia2/noticia2_0.jpg
     - assets/images/noticias/noticia2/noticia2_1.jpg
@@ -99,18 +101,244 @@ flutter:
     -  assets/images/directorio/iconos/icon_Taller.png
     -  assets/images/directorio/iconos/icon_Tecnologia.png
     -  assets/images/directorio/iconos/icon_Prom.png
+    -  assets/images/directorio/iconos/icon_Drogueria.png
     -  assets/images/directorio/Proximamente.png
+    -  assets/images/directorio/Proximamente_2.png
+
+    -  assets/images/lugares/iconos/icon-Como-Llegar-Blanco.png
+
+    -  assets/images/iconos/Call-White.png
+    -  assets/images/iconos/Download-White.png
+    -  assets/images/iconos/Download-Programacion-White.png
+    -  assets/images/iconos/Facebook-White.png
+    -  assets/images/iconos/Instagram-White.png
+    -  assets/images/iconos/Ubication-White.png
+    -  assets/images/iconos/WhatsApp-White.png
+
     
-
-
-      #Contactos de Emergencia
+    -  assets/images/iconos/V-Gris.png
+    -  assets/images/iconos/V-Negro.png
+    -  assets/images/iconos/V-Rojo.png
+    -  assets/images/iconos/V-Azul.png
+    -  assets/images/iconos/V-Verde.png   
+    
+    #Imagenes Directorio
     - assets/images/directorio/emergencia/principal.jpg
     - assets/images/directorio/artesania/principal.jpg
-    - assets/images/directorio/hotel/principal.jpg
+    - assets/images/directorio/hospedaje/principal.jpg
     - assets/images/directorio/mecanico/principal.jpg
     - assets/images/directorio/restaurante/principal.jpg
     - assets/images/directorio/tienda/principal.jpg
+    - assets/images/directorio/drogueria/principal.jpg
 
+    #Emergencia
+      #Hospital San Carlos
+    - assets/images/directorio/emergencia/hospital_san_carlos/principal.png
+      #Hospital Mamadominga
+    - assets/images/directorio/emergencia/hospital_mamadominga/principal.jpg
+      #Policia
+    - assets/images/directorio/emergencia/policia/principal.jpg
+    - assets/images/directorio/emergencia/policia/EST-POL-01.jpg
+      #Bomberos
+    - assets/images/directorio/emergencia/bomberos/principal.jpg
+    - assets/images/directorio/emergencia/bomberos/EST-BOM-01.jpg
+      #Emergencia Medica
+    - assets/images/directorio/emergencia/emergencia_medica/principal.jpg
+      #Defensa Civil
+    - assets/images/directorio/emergencia/defensa_civil/principal.jpg
+      #Cruz Roja
+    - assets/images/directorio/emergencia/cruz_roja/principal.jpg
+
+    
+
+    #Restaurantes
+      #Restaurante 1: Trucha y Sazon
+    - assets/images/directorio/restaurante/trucha_y_sazon/D-RE-TS-01.jpg
+    - assets/images/directorio/restaurante/trucha_y_sazon/D-RE-TS-02.jpg
+    - assets/images/directorio/restaurante/trucha_y_sazon/D-RE-TS-03.jpg
+    - assets/images/directorio/restaurante/trucha_y_sazon/D-RE-TS-04.jpg
+
+      #Restaurante 2: La Playa
+    - assets/images/directorio/restaurante/la_playa/D-RE-LP-01.jpg
+    - assets/images/directorio/restaurante/la_playa/D-RE-LP-02.jpg
+    - assets/images/directorio/restaurante/la_playa/D-RE-LP-03.jpg
+    - assets/images/directorio/restaurante/la_playa/D-RE-LP-04.jpg
+
+      #Restaurante 3: Mirador de la Aurora
+    - assets/images/directorio/restaurante/mirador_aurora/D-RE-MA-01.jpg
+    - assets/images/directorio/restaurante/mirador_aurora/D-RE-MA-02.jpg
+    - assets/images/directorio/restaurante/mirador_aurora/D-RE-MA-03.jpg
+    - assets/images/directorio/restaurante/mirador_aurora/D-RE-MA-04.jpg
+    
+    #Restaurante 4: Cafe Molino Dorado
+    - assets/images/directorio/restaurante/molino_dorado/D-RE-MD-01.jpg
+    - assets/images/directorio/restaurante/molino_dorado/D-RE-MD-02.jpg
+    - assets/images/directorio/restaurante/molino_dorado/D-RE-MD-03.jpg
+    - assets/images/directorio/restaurante/molino_dorado/D-RE-MD-04.jpg
+    - assets/images/directorio/restaurante/molino_dorado/D-RE-MD-05.jpg
+
+    #Restaurante 4: Tipico Paisa
+    - assets/images/directorio/restaurante/tipico_paisa/D-RE-TP-01.jpg
+    - assets/images/directorio/restaurante/tipico_paisa/D-RE-TP-02.jpg
+    - assets/images/directorio/restaurante/tipico_paisa/D-RE-TP-03.jpg
+    - assets/images/directorio/restaurante/tipico_paisa/D-RE-TP-04.jpg
+
+
+    #Hospedaje
+      #Hospedaje 1: La Parrilla
+    - assets/images/directorio/hospedaje/la_parrilla/D-HO-LP-01.jpg
+    - assets/images/directorio/hospedaje/la_parrilla/D-HO-LP-02.jpg
+    - assets/images/directorio/hospedaje/la_parrilla/D-HO-LP-03.jpg
+
+    #Hospedaje 2: Casa Turistica
+    - assets/images/directorio/hospedaje/casa_turistica/D-HO-CT-01.jpg
+    - assets/images/directorio/hospedaje/casa_turistica/D-HO-CT-02.jpg
+    - assets/images/directorio/hospedaje/casa_turistica/D-HO-CT-03.jpg
+
+    #Hospedaje 3: Hotel Silvia
+    - assets/images/directorio/hospedaje/hotel_silvia/D-HO-HS-01.jpg
+    - assets/images/directorio/hospedaje/hotel_silvia/D-HO-HS-02.jpg
+    - assets/images/directorio/hospedaje/hotel_silvia/D-HO-HS-03.jpg
+    - assets/images/directorio/hospedaje/hotel_silvia/D-HO-HS-04.jpg
+
+    #Hospedaje 4: Posada Nakku
+    - assets/images/directorio/hospedaje/posada_nakku/D-HO-PN-01.jpg
+    - assets/images/directorio/hospedaje/posada_nakku/D-HO-PN-02.jpg
+    - assets/images/directorio/hospedaje/posada_nakku/D-HO-PN-03.jpg
+    
+    #Hospedaje 5: Birimbi de La Casa De Los Sueños
+    - assets/images/directorio/hospedaje/casa_sueños/D-HO-CS-01.jpg
+    - assets/images/directorio/hospedaje/casa_sueños/D-HO-CS-02.jpg
+    - assets/images/directorio/hospedaje/casa_sueños/D-HO-CS-03.jpg
+    - assets/images/directorio/hospedaje/casa_sueños/D-HO-CS-04.jpg
+
+
+
+  #Tiendas
+      #Tienda 1: Merkavana
+    - assets/images/directorio/tienda/merkavana/D-HO-TI-MV-01.jpg
+    - assets/images/directorio/tienda/merkavana/D-HO-TI-MV-02.jpg
+    - assets/images/directorio/tienda/merkavana/D-HO-TI-MV-03.jpg
+    - assets/images/directorio/tienda/merkavana/D-HO-TI-MV-04.jpg
+
+
+      
+    #Droguerías
+      #Farmacenter
+    - assets/images/directorio/drogueria/farmacenter/D-DR-FC-01.jpg
+    - assets/images/directorio/drogueria/farmacenter/D-DR-FC-02.jpg
+    - assets/images/directorio/drogueria/farmacenter/D-DR-FC-03.jpg
+
+    # Farmacenter2
+    - assets/images/directorio/drogueria/farmacenter2/C-DR-DF2-1.jpg
+    - assets/images/directorio/drogueria/farmacenter2/C-DR-DF2-2.jpg
+    - assets/images/directorio/drogueria/farmacenter2/C-DR-DF2-3.jpg
+
+
+  #Turismo
+    #Turismo 1: Leidy Tours
+    - assets/images/directorio/turismo/leidy_tours/C-T-LT-1.jpg
+    - assets/images/directorio/turismo/leidy_tours/C-T-LT-2.jpg
+    - assets/images/directorio/turismo/leidy_tours/C-T-LT-3.jpg
+    
+    
+
+  #Imagenes Eventos
+      #Evento 1 Semana Santa
+    -  assets/images/eventos/SemanaSanta/CC-SS-01.jpg
+    -  assets/images/eventos/SemanaSanta/CC-SS-02.jpg
+    -  assets/images/eventos/SemanaSanta/CC-SS-03.jpg
+    -  assets/images/eventos/SemanaSanta/CC-SS-04.jpg
+    -  assets/images/eventos/SemanaSanta/CC-SS-05.jpg
+
+      #Evento 2 Metamonos Al Cuento
+    -  assets/images/eventos/MetamonosAlCuento/CC-MAC-01.jpg
+    -  assets/images/eventos/MetamonosAlCuento/CC-MAC-02.jpg
+    -  assets/images/eventos/MetamonosAlCuento/CC-MAC-03.jpg
+    -  assets/images/eventos/MetamonosAlCuento/CC-MAC-04.jpg
+    -  assets/images/eventos/MetamonosAlCuento/CC-MAC-05.jpg
+
+    #Evento 3 Festidanzas
+    -  assets/images/eventos/Festidanzas/CC-FD-01.jpg
+    -  assets/images/eventos/Festidanzas/CC-FD-02.jpg
+    -  assets/images/eventos/Festidanzas/CC-FD-03.jpg
+    -  assets/images/eventos/Festidanzas/CC-FD-04.jpg
+    -  assets/images/eventos/Festidanzas/CC-FD-05.jpg
+
+    #Evento 4 Danza Al Parque
+    -  assets/images/eventos/DanzaAlParque/CC-DP-01.jpg
+    
+    #Evento 5 Festival De Bandas
+    -  assets/images/eventos/FestivalDeBandas/CC-FB-01.jpg
+    -  assets/images/eventos/FestivalDeBandas/CC-FB-02.jpg
+    -  assets/images/eventos/FestivalDeBandas/CC-FB-03.jpg
+
+    #Evento 6 Feria 360
+    -  assets/images/eventos/Feria360/CC-F-01.jpg
+    -  assets/images/eventos/Feria360/CC-F-02.jpg
+    -  assets/images/eventos/Feria360/CC-F-03.jpg
+    -  assets/images/eventos/Feria360/CC-F-04.jpg
+
+    #Evento 7 Fiesta P. Ntra. Sra. de Chiquinquirá
+    -  assets/images/eventos/FiestaNuestraSeñoraChiquinquira/CC-CH-01.jpg
+    -  assets/images/eventos/FiestaNuestraSeñoraChiquinquira/CC-CH-02.jpg
+    -  assets/images/eventos/FiestaNuestraSeñoraChiquinquira/CC-CH-03.jpg
+
+
+  #Imagenes Sitios de Interés
+      #Parque Principal
+    -  assets/images/lugares/parque_principal/SI-PP-01.jpg
+    -  assets/images/lugares/parque_principal/SI-PP-02.jpg
+    -  assets/images/lugares/parque_principal/SI-PP-03.jpg
+
+    #Belén
+    -  assets/images/lugares/belen/SI-B-01.jpg
+    -  assets/images/lugares/belen/SI-B-02.jpg
+    -  assets/images/lugares/belen/SI-B-03.jpg
+    -  assets/images/lugares/belen/SI-B-04.jpg
+
+    #Lago Chimán
+    -  assets/images/lugares/chiman/SI-LC-01.jpg
+    -  assets/images/lugares/chiman/SI-LC-02.jpg
+    -  assets/images/lugares/chiman/SI-LC-03.jpg
+
+    #Molino El Carmen
+    -  assets/images/lugares/molino_el_carmen/SI-MC-01.jpg
+
+    #Templete Barrio las Delicias
+    -  assets/images/lugares/templete_barrio_las_delicias/SI-TD-01.jpg
+
+
+  #Imagenes Vacalok
+      #Corporacion Vacalok
+    -  assets/images/vacalok/CorporacionCultural/VK-CC-01.jpg
+
+      #Colectivo Audiovisual
+    -  assets/images/vacalok/ColectivoAudiovisual/VK-AV-01.jpg
+    -  assets/images/vacalok/ColectivoAudiovisual/VK-AV-02.jpg
+    -  assets/images/vacalok/ColectivoAudiovisual/VK-AV-03.jpg
+    -  assets/images/vacalok/ColectivoAudiovisual/VK-AV-04.jpg
+
+    #Colectivo Arte Urbano
+    -  assets/images/vacalok/ColectivoArteUrbano/VK-AU-01.jpg
+    -  assets/images/vacalok/ColectivoArteUrbano/VK-AU-02.jpg
+    -  assets/images/vacalok/ColectivoArteUrbano/VK-AU-03.jpg
+    -  assets/images/vacalok/ColectivoArteUrbano/VK-AU-04.jpg
+    -  assets/images/vacalok/ColectivoArteUrbano/VK-AU-05.jpg
+
+    #Colectivo Juvenil
+    -  assets/images/vacalok/ColectivoJuvenil/VK-JU-01.jpg
+    -  assets/images/vacalok/ColectivoJuvenil/VK-JU-02.jpg
+    -  assets/images/vacalok/ColectivoJuvenil/VK-JU-03.jpg
+    -  assets/images/vacalok/ColectivoJuvenil/VK-JU-04.jpg
+    -  assets/images/vacalok/ColectivoJuvenil/VK-JU-05.jpg
+
+    #Colectivo Teatral
+    -  assets/images/vacalok/ColectivoTeatral/VK-TE-01.jpg
+    -  assets/images/vacalok/ColectivoTeatral/VK-TE-02.jpg
+    -  assets/images/vacalok/ColectivoTeatral/VK-TE-03.jpg
+    -  assets/images/vacalok/ColectivoTeatral/VK-TE-04.jpg
+    -  assets/images/vacalok/ColectivoTeatral/VK-TE-05.jpg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

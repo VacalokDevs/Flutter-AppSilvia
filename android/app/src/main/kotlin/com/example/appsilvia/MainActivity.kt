@@ -1,4 +1,4 @@
-package com.example.appsilvia
+package com.vacalok.appsilvia
 
 import io.flutter.embedding.android.FlutterActivity
 

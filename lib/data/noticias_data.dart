@@ -5,46 +5,29 @@ class NoticiasData {
     Noticia(
       id: 1,
       imagen: 'assets/images/noticias/noticia1/noticia1_0.jpg',
-      titulo: 'Noticia 1',
+      titulo: '¡Bienvenido a Silvia! Descubre la App',
       descripcion:
-          'Descripción de la Noticia 1 - Descripción de la Noticia 1 - Descripción de la Noticia 1 - Descripción de la Noticia 1',
+          'La aplicación en el municipio de Silvia que te conecta con todo lo que necesitas en un solo lugar.',
       textoCompleto:
-          'Texto Completo de la noticia - Texto Completo de la noticia - Texto Completo de la noticia - Texto Completo de la noticia - Texto Completo de la noticia',
+          'La aplicación en el municipio de Silvia que te conecta con todo lo que necesitas en un solo lugar.',
       imagenesRelacionadas: [
         'assets/images/noticias/noticia1/noticia1_0.jpg',
-        'assets/images/noticias/noticia1/noticia1_1.jpg',
-        'assets/images/noticias/noticia1/noticia1_2.jpg',
-        'assets/images/noticias/noticia1/noticia1_3.jpg',
-        'assets/images/noticias/noticia1/noticia1_4.jpg',
-        'assets/images/noticias/noticia1/noticia1_5.jpg',
       ],
       backgroundImage: 'assets/images/noticias/noticia1/noticia1_0.jpg',
     ),
     Noticia(
       id: 2,
       imagen: 'assets/images/noticias/noticia2/noticia2_0.jpg',
-      titulo: 'Noticia 2',
-      descripcion: 'Descripción de la Noticia 2',
+      titulo: 'Descubre Silvia',
+      descripcion: 'Explora la naturaleza y cultura de Silvia como nunca antes. ¡Pronto, toda la información que necesitas para una visita inolvidable!',
       textoCompleto:
-          'Texto Completo de la noticia - Texto Completo de la noticia - Texto Completo de la noticia - Texto Completo de la noticia - Texto Completo de la noticia',
+          'Explora la naturaleza y cultura de Silvia como nunca antes. ¡Pronto, toda la información que necesitas para una visita inolvidable!',
       imagenesRelacionadas: [
         'assets/images/noticias/noticia2/noticia2_0.jpg',
         'assets/images/noticias/noticia2/noticia2_1.jpg',
         'assets/images/noticias/noticia2/noticia2_2.jpg',
       ],
       backgroundImage: 'assets/images/noticias/noticia2/noticia2_0.jpg',
-    ),
-    Noticia(
-      id: 3,
-      imagen: 'assets/images/1.jpg',
-      titulo: 'Noticia 3',
-      descripcion: 'Descripción de la Noticia 3',
-      textoCompleto:
-          'Texto Completo de la noticia - Texto Completo de la noticia - Texto Completo de la noticia - Texto Completo de la noticia - Texto Completo de la noticia',
-      imagenesRelacionadas: [
-        'assets/images/noticias/noticia2/noticia2_0.jpg',
-      ],
-      backgroundImage: 'assets/images/noticias/noticia3/noticia3_0.jpg',
     ),
   ];
 }

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
 class MarcaSilviaScreen extends StatefulWidget {
+  const MarcaSilviaScreen({super.key});
+
   @override
   _MarcaSilviaScreenState createState() => _MarcaSilviaScreenState();
 }
 
 class _MarcaSilviaScreenState extends State<MarcaSilviaScreen> {
-  PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController(initialPage: 0);
   int _currentIndex = 0;
 
-  List<SectionData> _sections = [
+  final List<SectionData> _sections = [
     SectionData(
       title: 'Marca Silvia',
       imageBG: 'assets/images/MarcaSilviaBG.jpg',
@@ -34,7 +36,7 @@ class _MarcaSilviaScreenState extends State<MarcaSilviaScreen> {
       imageBG: 'assets/images/MarcaSilviaBG.jpg',
       imageItem: 'assets/images/resourcesMarcaSilvia/mS_Slogan.svg.png',
       description:
-          'Es la descripción textual de lo que es el municipio de Silvia en materia cultural, gracias a su amplio abanico en este aspecto, compuesto por 4 comunidades indigenas; Kishú, Nasa, Ampiuile, y Misak, dos comunidades indigenas como los son Usenda y Santa Lucia y la zona urbana, convirtiendose de este modo, en uno de los 3 municipios con mayor diversidad indignea de Colombia.',
+          'Es la descripción textual de lo que es el municipio de Silvia en materia cultural, gracias a su amplio abanico en este aspecto, compuesto por 4 comunidades indigenas; Kishú, Nasa, Ampiuile, y Misak, dos comunidades indigenas como los son Usenda y Santa Lucia y la zona urbana, convirtiendose de este modo, en uno de los 3 municipios con mayor diversidad indigena de Colombia.',
       width: 0.1, // Ancho personalizado para la tercera sección
       height: 0.1, // Alto personalizado para la tercera sección
     ),
@@ -61,7 +63,7 @@ class _MarcaSilviaScreenState extends State<MarcaSilviaScreen> {
       imageBG: 'assets/images/MarcaSilviaBG.jpg',
       imageItem: 'assets/images/resourcesMarcaSilvia/mS_Alert.svg.png',
       description:
-          'Todos los socios de la marca Silvia, están obligados a ejercer buenas y éticas practicas en sus actividades para la pervalencia del buen nombre de Silvia, así como también velar por la conservación y proyección de todos los valores pluriculturales y naturales del municipio, todo lo anterior, conlleva a un alto nivel de sentido de pertenencia, caracteristica fundamental de todo aquel que quiera portar dicha marca.',
+          'Todos los socios de la marca Silvia, están obligados a ejercer buenas y éticas practicas en sus actividades para la prevalencia del buen nombre de Silvia, así como también velar por la conservación y proyección de todos los valores pluriculturales y naturales del municipio, todo lo anterior, conlleva a un alto nivel de sentido de pertenencia, caracteristica fundamental de todo aquel que quiera portar dicha marca.',
       width: 0.3, // Ancho personalizado para la primera sección
       height: 0.3, // Alto personalizado para la primera sección
     ),
@@ -85,13 +87,14 @@ class _MarcaSilviaScreenState extends State<MarcaSilviaScreen> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
             color: Colors.black,
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -105,7 +108,7 @@ class _MarcaSilviaScreenState extends State<MarcaSilviaScreen> {
           children: [
             Expanded(
               child: AnimatedSwitcher(
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
                 transitionBuilder: (Widget child, Animation<double> animation) {
                   return FadeTransition(
                     opacity: animation,
@@ -122,87 +125,97 @@ class _MarcaSilviaScreenState extends State<MarcaSilviaScreen> {
                   },
                   itemBuilder: (BuildContext context, int index) {
                     SectionData section = _sections[index];
-                    final titlePadding = EdgeInsets.symmetric(
-                      horizontal: screenWidth / 5,
+                    const horizontalMargin = 20.0; // Margen horizontal de 10px
+                    const titlePadding = EdgeInsets.symmetric(
+                      horizontal: horizontalMargin,
                     );
-                    final descriptionPadding = EdgeInsets.symmetric(
-                      horizontal: screenWidth / 9,
-                      vertical: 0,
+                    const descriptionPadding = EdgeInsets.symmetric(
+                      horizontal: horizontalMargin,
+                      vertical: 20, // Espacio vertical para el texto
                     );
 
-                    return Container(
-                      key: ValueKey<int>(_currentIndex),
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(section.imageBG),
-                          fit: BoxFit.cover,
+                    return SingleChildScrollView(
+                      child: Container(
+                        key: ValueKey<int>(_currentIndex),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(section.imageBG),
+                            fit: BoxFit.cover,
+                          ),
                         ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: titlePadding,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                section.title,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 30,
-                                  fontFamily: 'Helvetica-Bold',
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: titlePadding,
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  section.title,
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 30,
+                                    fontFamily: 'Helvetica-Bold',
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
                             ),
-                          ),
-                          SizedBox(height: 20),
-                          Wrap(
-                            alignment: WrapAlignment.center,
-                            children: [
-                              Container(
-                                width: double.infinity,
-                                child: IntrinsicWidth(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      Image.asset(
-                                        section.imageItem,
-                                        height: section.height * screenWidth,
-                                      ),
-                                      if (section.imageItem2 != null)
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 40,
-                                            vertical: 0,
-                                          ),
-                                          child: Image.asset(
-                                            section.imageItem2!,
-                                            width:
-                                                descriptionPadding.horizontal *
-                                                    6,
-                                            height: 100,
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                ),
+                            const SizedBox(height: 20),
+                            Container(
+                              // Establece un tamaño máximo para el contenedor de imágenes
+                              constraints: BoxConstraints(
+                                maxWidth: screenWidth - 2 * horizontalMargin, // Ancho máximo ajustado
                               ),
-                            ],
-                          ),
-                          SizedBox(height: 20),
-                          Padding(
-                            padding: descriptionPadding,
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Container(
+                              child: Wrap(
+                                alignment: WrapAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: IntrinsicWidth(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        children: [
+                                          Image.asset(
+                                            section.imageItem,
+                                            height:
+                                                section.height * screenWidth,
+                                          ),
+                                          if (section.imageItem2 != null)
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                vertical: 0,
+                                              ),
+                                              child: Image.asset(
+                                                section.imageItem2!,
+                                                width: descriptionPadding
+                                                        .horizontal *
+                                                    6,
+                                                height: 100,
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Container(
+                              constraints: BoxConstraints(
+                                maxWidth: screenWidth - 2 * horizontalMargin, // Ancho máximo ajustado
+                              ),
+                              padding: descriptionPadding,
+                              child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   section.description,
                                   textAlign: TextAlign.justify,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     letterSpacing: 0.8,
                                     wordSpacing: 1.8,
                                     fontFamily: 'Helvetica-Light',
@@ -212,15 +225,15 @@ class _MarcaSilviaScreenState extends State<MarcaSilviaScreen> {
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: _buildIndicator(screenWidth),
@@ -235,10 +248,10 @@ class _MarcaSilviaScreenState extends State<MarcaSilviaScreen> {
     return List<Widget>.generate(_sections.length, (int index) {
       final isActive = _currentIndex == index;
       return AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         width: isActive ? screenWidth / 30 : screenWidth / 50,
         height: isActive ? screenWidth / 30 : screenWidth / 50,
-        margin: EdgeInsets.symmetric(horizontal: 4, vertical: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 20),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: isActive ? Colors.grey[800] : Colors.grey[300],

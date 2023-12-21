@@ -6,7 +6,8 @@ import 'InfoComercioScreen.dart';
 class ListaComerciosEspecificosScreen extends StatefulWidget {
   final String tipoComercio;
 
-  ListaComerciosEspecificosScreen({required this.tipoComercio});
+  const ListaComerciosEspecificosScreen(
+      {super.key, required this.tipoComercio});
 
   @override
   _ListaComerciosEspecificosScreenState createState() =>
@@ -19,8 +20,8 @@ class _ListaComerciosEspecificosScreenState
   final ScrollController _controller = ScrollController();
   List<Comercio> comercios = [];
   int _focusedIndex = -1;
-  Color _appBarColor =
-      Color.fromARGB(255, 255, 255, 255); // Color predeterminado del AppBar
+  Color _appBarColor = const Color.fromARGB(
+      255, 255, 255, 255); // Color predeterminado del AppBar
 
   void _navigateToInfoComercioScreen(Comercio comercio) {
     Navigator.push(
@@ -62,7 +63,7 @@ class _ListaComerciosEspecificosScreenState
       appBar: AppBar(
         title: Text(widget
             .tipoComercio), // Usar widget.tipoComercio para acceder al valor
-        titleTextStyle: TextStyle(
+        titleTextStyle: const TextStyle(
           fontFamily: 'Helvetica-Bold',
           fontSize: 22,
         ),
@@ -83,7 +84,7 @@ class _ListaComerciosEspecificosScreenState
       itemBuilder: (context, index) {
         final comercio = comercios[index];
         final isFocused = index == _focusedIndex;
-        final scale = isFocused ? 1.8 : 1.0;
+        final scale = isFocused ? 2.0 : 1.25;
         final borderRadius =
             isFocused ? BorderRadius.circular(16) : BorderRadius.circular(12);
 
@@ -94,13 +95,15 @@ class _ListaComerciosEspecificosScreenState
               _setFocusedIndex(comercioIndex);
               _updateAppBarColor(comercio.color);
             }
-            _navigateToInfoComercioScreen(comercio);
+            Future.delayed(const Duration(milliseconds: 100), () {
+              _navigateToInfoComercioScreen(comercio);
+            });
           },
           child: _AnimatedListItem(
             comercio: comercio,
             scale: scale,
             borderRadius: borderRadius,
-            animationDuration: Duration(milliseconds: 500),
+            animationDuration: const Duration(milliseconds: 300),
           ),
         );
       },
@@ -198,7 +201,7 @@ class _AnimatedListItem extends StatelessWidget {
             height: MediaQuery.of(context).size.height / 12 * scale,
             decoration: BoxDecoration(
               borderRadius: borderRadius,
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.black87,
                   blurRadius: 3,
@@ -207,7 +210,7 @@ class _AnimatedListItem extends StatelessWidget {
                 ),
               ],
               image: DecorationImage(
-                image: AssetImage(comercio.imagenComercio),
+                image: AssetImage(comercio.miniaturaImagenComercio),
                 fit: BoxFit.cover,
                 colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.7),
@@ -230,7 +233,7 @@ class _AnimatedListItem extends StatelessWidget {
                   gradient: LinearGradient(
                     colors: [
                       Colors.black.withOpacity(0.0),
-                      Colors.black.withOpacity(0.5),
+                      Colors.black.withOpacity(0.15),
                     ],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -247,7 +250,7 @@ class _AnimatedListItem extends StatelessWidget {
                     children: [
                       Text(
                         comercio.nombre,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 import 'screens/InicioScreen.dart';
 import 'screens/screensDirectory/DirectorioScreen.dart';
-import 'screens/EventosScreen.dart';
+import 'screens/EventScreen.dart';
 import 'screens/DeInteresScreen.dart';
 import 'screens/VacalokScreen.dart';
 import 'helpers/flutterfont.dart';
 
 class BottomTabMenu extends StatefulWidget {
+  const BottomTabMenu({super.key});
+
   @override
   _BottomTabMenuState createState() => _BottomTabMenuState();
 }
 
 class _BottomTabMenuState extends State<BottomTabMenu> {
   int _currentIndex = 0;
-  double _selectedIconSize = 28.0;
-  double _unselectedIconSize = 24.0;
+  final double _selectedIconSize = 28.0;
+  final double _unselectedIconSize = 24.0;
   final List<Widget> _screens = [
-    InicioScreen(),
-    DirectorioScreen(),
-    EventosScreen(),
-    DeInteresScreen(),
-    VacalokScreen(),
+    const InicioScreen(),
+    const DirectorioScreen(),
+    const EventScreen(),
+    const DeInteresScreen(),
+    const VacalokScreen(),
   ];
 
   BottomNavigationBarItem _buildBottomNavigationBarItem(
@@ -42,7 +44,7 @@ class _BottomTabMenuState extends State<BottomTabMenu> {
         children: _screens,
       ),
       bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
         ),
@@ -55,7 +57,7 @@ class _BottomTabMenuState extends State<BottomTabMenu> {
             });
           },
           backgroundColor: Colors.white,
-          selectedItemColor: Color(0xFF0069A5),
+          selectedItemColor: const Color(0xFF0069A5),
           unselectedItemColor: Colors.grey,
           selectedFontSize: 12,
           unselectedFontSize: 12,
